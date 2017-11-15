@@ -1,0 +1,46 @@
+<!-- views/story.ejs -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title><%= title %> | ConTiNue</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <%- include('partials/header') %>
+        <div>
+            <h2><%= title %></h2>
+            <p>by <a href="#"><%= author %></a></p>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="list-group">
+                      <% fragments.forEach((fragment) => { %>
+                        <a href="#" class="list-group-item">
+                          <h4 class="list-group-item-heading"><%= fragment.data %></h4>
+                          <p class="list-group-item-text"><%= fragment.author %></p>
+                          <p class="list-group-item-text"><%= fragment.modifiedat %></p>
+                          <p class="list-group-item-text"><%= fragment.createdat %></p>
+                        </a>
+                      <% }) %>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+        </div>
+        <%- include('partials/footer') %>
+    </div>
+</body>
+
+</html>

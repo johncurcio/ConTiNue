@@ -1,0 +1,27 @@
+{
+  "name": "continue",
+  "version": "0.0.1",
+  "description": "Group Storytelling blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johncurcio/ConTiNue.git"
+  },
+  "keywords": [
+    "group",
+    "storytelling"
+  ],
+  "author": "John Curcio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johncurcio/ConTiNue/issues"
+  },
+  "homepage": "https://github.com/johncurcio/ConTiNue#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
+  }
+}
