@@ -1,9 +1,7 @@
 const app = require('express')()
 
-// set the view engine to ejs
 app.set('view engine', 'ejs')
 
-// fake stories to simulate a database
 const stories = [
   {
     id: 1,
@@ -44,19 +42,23 @@ const stories = [
       		data: "E a fera.",
      		createdat:"26-11-2017",
       		modifiedat:""
+      	},
+      	{
+      		author:"Tulio",
+      		data: "se foi",
+     		createdat:"26-11-2017",
+      		modifiedat:""
       	}
     ]
   }
 ]
 
-//home page
 app.get('/', (req, res) => {
   res.render('index', 
   		{ stories: stories }
   	)
 })
 
-// blog post
 app.get('/story/:id', (req, res) => {
   const story = stories.filter((stry) => {
     return stry.id == req.params.id

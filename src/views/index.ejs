@@ -29,18 +29,17 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
-                <div class="list-group">
-                  <% stories.forEach((story) => { %>
-                    <a href="/story/<%= story.id %>" class="list-group-item">
-                      <h4 class="list-group-item-heading"><%= story.title %></h4>
-                      <p class="list-group-item-text"><%= story.author %></p>
-                      <p class="list-group-item-text"><%= story.genre %></p>
-                      <p class="list-group-item-text"><%= story.createdat %></p>
-                    </a>
-                  <% }) %>
-                </div>
+          <% stories.forEach((story) => { %>
+            <div class="col-lg-4">
+              <a href="/story/<%= story.id %>" class="list-group-item justify-content-between">
+                <span class="badge badge-default badge-pill"><%= story.fragments.length %></span>
+                <h4 class="list-group-item-heading"><%= story.title %></h4>
+                <p class="list-group-item-text"><%= story.author %></p>
+                <p class="list-group-item-text"><%= story.genre %></p>
+                <p class="list-group-item-text"><%= story.createdat %></p>
+              </a>
             </div>
+          <% }) %>
         </div>
 
         <%- include('partials/footer') %>
