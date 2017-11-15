@@ -18,12 +18,13 @@
 <body>
     <div class="container">
         <%- include('partials/header') %>
+
         <div>
             <h2><%= title %></h2>
-            <p>by <a href="#"><%= author %></a></p>
+            <p>história criada por <a href="#"><%= author %></a></p>
 
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <div class="list-group">
                       <% fragments.forEach((fragment) => { %>
                         <a href="#" class="list-group-item">
@@ -36,9 +37,8 @@
                     </div>
                 </div>
             </div>
-
-            <hr>
         </div>
+
         <%- include('partials/footer') %>
     </div>
 </body>

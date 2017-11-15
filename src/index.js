@@ -1,63 +1,23 @@
-const app = require('express')()
+var express  = require('express');
+var app      = express();
+var path     = require('path');
+var fs       = require('fs');
 
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
-const stories = [
-  {
-    id: 1,
-    author: 'John Curcio',
-    title: 'Chapeuzinho Vermelho',
-    genre: 'fantasia',
-    createdat: '25-11-2017',
-    fragments: [
-    	{
-			author:"Claudia",
-      		data: "Chapeuzinho vermelho era uma garotinha muito levada...",
-     		createdat:"26-11-2017",
-      		modifiedat:""
-      	},
-      	{
-      		author:"Claudia",
-      		data: "E, por isso, acabou sendo levada pelo lobo mau.",
-     		createdat:"26-11-2017",
-      		modifiedat:""
-      	}
-    ]
-  },
-  {
-    id: 2,
-    author: 'JPaulo',
-    title: 'Bela e a Fera',
-    genre: 'fantasia',
-    createdat: '25-11-2017',
-    fragments: [
-    	{
-			author:"John",
-      		data: "Bela...",
-     		createdat:"26-11-2017",
-      		modifiedat:""
-      	},
-      	{
-      		author:"Tulio",
-      		data: "E a fera.",
-     		createdat:"26-11-2017",
-      		modifiedat:""
-      	},
-      	{
-      		author:"Tulio",
-      		data: "se foi",
-     		createdat:"26-11-2017",
-      		modifiedat:""
-      	}
-    ]
-  }
-]
+app.use(express.static(path.join(__dirname, 'public')));
+
+var stories;
+fs.readFile('stories.json', 'utf8', function (err, data) {
+  if (err) throw err;
+  stories = JSON.parse(data);
+});
 
 app.get('/', (req, res) => {
   res.render('index', 
   		{ stories: stories }
   	)
-})
+});
 
 app.get('/story/:id', (req, res) => {
   const story = stories.filter((stry) => {
@@ -71,8 +31,8 @@ app.get('/story/:id', (req, res) => {
 	createdat: story.createdat,
 	fragments: story.fragments
   })
-})
+});
 
-app.listen(8080)
+app.listen(8080);
 
-console.log('listening on port 8080')
+console.log('listening on port 8080');

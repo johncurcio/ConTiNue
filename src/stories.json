@@ -1,0 +1,104 @@
+[
+ {
+    "id": 1,
+    "author": "John Curcio",
+    "title": "Chapeuzinho Vermelho",
+    "genre": "fantasia",
+    "createdat": "25-11-2017",
+    "fragments": [
+    	{
+			    "author":"Claudia",
+      		"data": "Chapeuzinho vermelho era uma garotinha muito levada...",
+     		   "createdat":"26-11-2017",
+      		"modifiedat":""
+      	},
+      	{
+      		"author":"Claudia",
+      		"data": "E, por isso, acabou sendo levada pelo lobo mau.",
+     		  "createdat":"26-11-2017",
+      		"modifiedat":""
+      	}
+    ]
+  },
+  {
+    "id": 2,
+    "author": "JPaulo",
+    "title": "Bela e a Fera",
+    "genre": "fantasia",
+    "createdat": "25-11-2017",
+    "fragments": [
+    	{
+			  "author":"John",
+      	"data": "Bela...",
+     		"createdat":"26-11-2017",
+      	"modifiedat":""
+      },
+      {
+    		"author":"Tulio",
+    		"data": "E a fera.",
+   		  "createdat":"26-11-2017",
+     		"modifiedat":""
+     	},
+      {
+      	"author":"Tulio",
+      	"data": "se foi",
+     		"createdat":"26-11-2017",
+      	"modifiedat":""
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "author": "Claudio",
+    "title": "História 3",
+    "genre": "fantasia",
+    "createdat": "25-11-2017",
+    "fragments": [
+      {
+        "author":"John",
+        "data": "Bela...",
+        "createdat":"26-11-2017",
+        "modifiedat":""
+      },
+      {
+        "author":"Tulio",
+        "data": "E a fera.",
+        "createdat":"26-11-2017",
+        "modifiedat":""
+      },
+      {
+        "author":"Tulio",
+        "data": "se foi",
+        "createdat":"26-11-2017",
+        "modifiedat":""
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "author": "Saulo",
+    "title": "História 4",
+    "genre": "fantasia",
+    "createdat": "25-11-2017",
+    "fragments": [
+      {
+        "author":"John",
+        "data": "Bela...",
+        "createdat":"26-11-2017",
+        "modifiedat":""
+      },
+      {
+        "author":"Tulio",
+        "data": "E a fera.",
+        "createdat":"26-11-2017",
+        "modifiedat":""
+      },
+      {
+        "author":"Tulio",
+        "data": "se foi",
+        "createdat":"26-11-2017",
+        "modifiedat":""
+      }
+    ]
+  }
+]
