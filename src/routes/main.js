@@ -7,9 +7,10 @@ fs.readFile('stories.json', 'utf8', function (err, data) {
   stories = JSON.parse(data);
 });
 
+// all pages need a title!
 router.get('/', (req, res) => {
   res.render('index', 
-        { stories: stories }
+        { title: 'ConTiNue', stories: stories }
     )
 });
 

@@ -1,39 +1,29 @@
 <!-- views/story.ejs -->
 
-<!DOCTYPE html>
-<html>
+<%- include('partials/head') %>
 
-<head>
-    <title><%= title %> | ConTiNue</title>
-    <%- include('partials/head') %>
-</head>
+<div class="container">
+    <%- include('partials/header') %>
 
-<body>
-    <div class="container">
-        <%- include('partials/header') %>
+    <div>
+        <h2><%= title %></h2>
+        <p>história criada por <a href="#"><%= author %></a></p>
 
-        <div>
-            <h2><%= title %></h2>
-            <p>história criada por <a href="#"><%= author %></a></p>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="list-group">
-                      <% fragments.forEach((fragment) => { %>
-                        <a href="#" class="list-group-item">
-                          <h4 class="list-group-item-heading"><%= fragment.data %></h4>
-                          <p class="list-group-item-text"><%= fragment.author %></p>
-                          <p class="list-group-item-text"><%= fragment.modifiedat %></p>
-                          <p class="list-group-item-text"><%= fragment.createdat %></p>
-                        </a>
-                      <% }) %>
-                    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="list-group">
+                  <% fragments.forEach((fragment) => { %>
+                    <a href="#" class="list-group-item">
+                      <h4 class="list-group-item-heading"><%= fragment.data %></h4>
+                      <p class="list-group-item-text"><%= fragment.author %></p>
+                      <p class="list-group-item-text"><%= fragment.modifiedat %></p>
+                      <p class="list-group-item-text"><%= fragment.createdat %></p>
+                    </a>
+                  <% }) %>
                 </div>
             </div>
         </div>
-
-        <%- include('partials/footer') %>
     </div>
-</body>
+</div>
 
-</html>
+<%- include('partials/footer') %>
