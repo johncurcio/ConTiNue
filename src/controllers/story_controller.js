@@ -17,7 +17,7 @@ exports.story_list = function(req, res, next) {
     });
 };
 
-exports.fragments_list = function(req, res, next) {
+exports.story_fragments_list = function(req, res, next) {
     var id = mongoose.Types.ObjectId(req.params.id); 
     Story.findById(id)
     //.populate('fragments')
@@ -26,6 +26,37 @@ exports.fragments_list = function(req, res, next) {
       if (err) { return next(err); }
       //Successful, so render
       res.render('story', { 
+            author: story.author,
+            synopsis: story.synopsis,
+            title: story.title,
+            genre: story.genre,
+            createdat: story.createdat,
+            fragments: story.fragments,  
+            loggedUser: req.user
+        });
+    });
+};
+
+
+exports.story_create_get = function(req, res) {
+    res.render('newstory', { 
+        title: 'Crie sua história',  
+        loggedUser: req.user
+    });
+};
+
+
+exports.story_create_post = function(req, res) {
+    var story = new Story({
+        author: req.user,
+        title: req.body.title,
+        genre: req.body.genre,
+        synopsis: req.body.synopsis,
+        fragments: []
+    });
+    story.save(function (err) {
+        if (err) { return next(err); }
+        res.render('story', { 
             author: story.author,
             synopsis: story.synopsis,
             title: story.title,

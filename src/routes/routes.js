@@ -4,7 +4,7 @@ module.exports = function(app, passport) {
   // all pages need a title!
   app.get('/',  story_controller.story_list);
 
-  app.get('/story/:id', story_controller.fragments_list);
+  app.get('/story/:id', story_controller.story_fragments_list);
 
   app.get('/login', function(req, res) {
       res.render('login', { 
@@ -39,12 +39,16 @@ module.exports = function(app, passport) {
       res.redirect('/');
   });
 
+  app.get('/addStory', isLoggedIn, story_controller.story_create_get);
+
+  app.post('/addStory', story_controller.story_create_post );
+
 }
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
-    res.redirect('/');
+    res.redirect('/login');
 }
 
 

@@ -4,12 +4,12 @@
         <ul class="nav nav-pills pull-right">
         	<% if (loggedUser) { %>
         		<li role="presentation"><a class='user' href=""><%= loggedUser.local.username %></a></li>
+                <li role="presentation"><a href="/addStory">+ história</a></li>
             	<li role="presentation"><a href="/logout">Sair</a></li>
             <% } else { %>
             	<li role="presentation"><a href="/login">Entrar</a></li>
             	<li role="presentation"><a href="/signup">Increver-se</a></li>
-            <% } %>	
-            <li role="presentation"><a href="/">Buscar</a></li>
+            <% } %>
         </ul>
         <h3 class="text-muted"><a href="/">ConTiNue</a></h3>
     </nav>
