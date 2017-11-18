@@ -17,9 +17,9 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+var options = { promiseLibrary: require('bluebird') };
 var configDB = require('./config/database.js');
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect(configDB.url, options); // connect to our database
 require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application

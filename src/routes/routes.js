@@ -1,3 +1,5 @@
+var story_controller = require('../controllers/story_controller');
+
 var fs       = require('fs');
 
 var stories;
@@ -8,26 +10,9 @@ fs.readFile('stories.json', 'utf8', function (err, data) {
 
 module.exports = function(app, passport) {
   // all pages need a title!
-  app.get('/', (req, res) => {
-    res.render('index', 
-          { title: 'ConTiNue', stories: stories, loggedUser: req.user }
-      )
-  });
+  app.get('/',  story_controller.story_list);
 
-  app.get('/story/:id', (req, res) => {
-    const story = stories.filter((stry) => {
-      return stry.id == req.params.id
-    })[0]
-
-    res.render('story', {
-      author: story.author,
-      title: story.title,
-      genre: story.genre,
-      createdat: story.createdat,
-      fragments: story.fragments, 
-      loggedUser: req.user 
-    })
-  });
+  app.get('/story/:id', story_controller.fragments_list);
 
   app.get('/login', function(req, res) {
       res.render('login', { title: 'Entrar | ConTiNue', message: req.flash('loginMessage'), loggedUser: req.user }); 
