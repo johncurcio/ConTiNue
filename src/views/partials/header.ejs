@@ -3,7 +3,7 @@
     <nav>
         <ul class="nav nav-pills pull-right">
         	<% if (loggedUser) { %>
-        		<p> <%= loggedUser.local.username %> </p>
+        		<li role="presentation"><a class='user' href=""><%= loggedUser.local.username %></a></li>
             	<li role="presentation"><a href="/logout">Sair</a></li>
             <% } else { %>
             	<li role="presentation"><a href="/login">Entrar</a></li>

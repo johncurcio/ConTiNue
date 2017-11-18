@@ -30,7 +30,7 @@ module.exports = function(app, passport) {
   });
 
   app.get('/login', function(req, res) {
-      res.render('login', { title: 'Entrar | ConTiNue', message: req.flash('loginMessage') }); 
+      res.render('login', { title: 'Entrar | ConTiNue', message: req.flash('loginMessage'), loggedUser: req.user }); 
   });
 
   app.post('/login', passport.authenticate('local-login', {
@@ -40,7 +40,7 @@ module.exports = function(app, passport) {
   }));
 
   app.get('/signup', function(req, res) {
-      res.render('signup', { title: 'Registre-se | ConTiNue', message: req.flash('signupMessage') });
+      res.render('signup', { title: 'Registre-se | ConTiNue', message: req.flash('signupMessage'), loggedUser: req.user });
   });
 
   app.post('/signup', passport.authenticate('local-signup', {

@@ -25,7 +25,7 @@ module.exports = function(passport) {
                 if (err)
                     return done(err);
                 if (user) {
-                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                    return done(null, false, req.flash('signupMessage', 'Usuário já existe.'));
                 } else {
                     var newUser            = new User();
                     newUser.local.username    = username;
@@ -56,10 +56,10 @@ module.exports = function(passport) {
                 return done(err);
 
             if (!user)
-                return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                return done(null, false, req.flash('loginMessage', 'Usuário não encontrado.')); // req.flash is the way to set flashdata using connect-flash
 
             if (!user.validPassword(password))
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                return done(null, false, req.flash('loginMessage', 'Oops! Senha incorreta.')); // create the loginMessage and save it to session as flashdata
 
             return done(null, user);
         });
