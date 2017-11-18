@@ -26,6 +26,7 @@ exports.story_fragments_list = function(req, res, next) {
       if (err) { return next(err); }
       //Successful, so render
       res.render('story', { 
+            id: story._id,
             author: story.author,
             synopsis: story.synopsis,
             title: story.title,
@@ -38,7 +39,7 @@ exports.story_fragments_list = function(req, res, next) {
 };
 
 
-exports.story_create_get = function(req, res) {
+exports.story_create_get = function(req, res, next) {
     res.render('newstory', { 
         title: 'Crie sua história',  
         loggedUser: req.user
@@ -46,7 +47,7 @@ exports.story_create_get = function(req, res) {
 };
 
 
-exports.story_create_post = function(req, res) {
+exports.story_create_post = function(req, res, next) {
     var story = new Story({
         author: req.user,
         title: req.body.title,
@@ -65,5 +66,23 @@ exports.story_create_post = function(req, res) {
             fragments: story.fragments,  
             loggedUser: req.user
         });
+    });
+};
+
+exports.story_fragment_create_post = function(req, res, next) {
+    var id = mongoose.Types.ObjectId(req.params.id); 
+    var fragment = new Fragment({
+        author: req.user,
+        data: req.body.data
+    });
+
+    Story.findByIdAndUpdate(id, {$push: { fragments: fragment }}, {safe: true, upsert: true},
+        function(err, model) {
+            console.log(err);
+        });
+
+    fragment.save(function (err) {
+        if (err) { return next(err); }
+        res.redirect('/story/'+req.params.id);
     });
 };

@@ -43,6 +43,8 @@ module.exports = function(app, passport) {
 
   app.post('/addStory', story_controller.story_create_post );
 
+  app.post('/story/:id/addFragment', story_controller.story_fragment_create_post );
+
 }
 
 function isLoggedIn(req, res, next) {
