@@ -4,16 +4,24 @@ var Fragment = require('../models/fragment')
 
 // Display list of all Stories
 exports.story_list = function(req, res, next) {
+    var perPage = 4 //change this to add more pages
+    var page    = req.params.page || 1
     Story.find()
-    .sort([['genre', 'ascending']])
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
     .exec(function (err, list_stories) {
-      if (err) { return next(err); }
-      //Successful, so render
-      res.render('index', { 
-            title: 'ConTiNue', 
-            stories: list_stories, 
-            loggedUser: req.user
+        Story.count().exec(function (err, count) {
+            if (err) { return next(err); }
+            //Successful, so render
+            res.render('index', { 
+                  title: 'ConTiNue', 
+                  stories: list_stories, 
+                  loggedUser: req.user,
+                  current: page,
+                  pages: Math.ceil(count / perPage)
+              });
         });
+      
     });
 };
 
@@ -58,6 +66,7 @@ exports.story_create_post = function(req, res, next) {
     story.save(function (err) {
         if (err) { return next(err); }
         res.render('story', { 
+            id: story._id,
             author: story.author,
             synopsis: story.synopsis,
             title: story.title,
