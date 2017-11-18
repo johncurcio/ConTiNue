@@ -10,6 +10,12 @@
         <p><em>"<%= synopsis %>"</em></p>
         <p>história criada por <a href="#"><%= author.local.username %></a></p>
 
+        <div class="compile-fragments">
+          <form action="/story/<%= id %>/compiledStory" method="post">
+              <button type="submit" class="btn btn-success btn-sm">Compilar Fragmentos</button>
+          </form>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="list-group">

@@ -48,6 +48,9 @@ module.exports = function(app, passport) {
 
   app.post('/story/:id/addFragment', story_controller.story_fragment_create_post );
 
+  app.post('/story/:id/compiledStory', story_controller.story_fragment_compile_post );
+
+  app.get('/story/:id/compiledStory', story_controller.story_fragment_compile_post );
 }
 
 function isLoggedIn(req, res, next) {

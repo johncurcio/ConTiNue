@@ -1,0 +1,24 @@
+<!-- views/compiledstory.ejs -->
+
+<%- include('partials/head') %>
+
+<div class="container">
+    <%- include('partials/header') %>
+
+    <div>
+
+        <div class="compile-fragments">
+          <form action="/story/<%= id %>/" method="get">
+              <button type="submit" class="btn btn-success btn-sm">Voltar</button>
+          </form>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+              <p><%= full_story %></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

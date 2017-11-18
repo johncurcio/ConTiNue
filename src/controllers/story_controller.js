@@ -26,8 +26,7 @@ exports.story_list = function(req, res, next) {
 };
 
 exports.story_fragments_list = function(req, res, next) {
-    var id = mongoose.Types.ObjectId(req.params.id); 
-    Story.findById(id)
+    Story.findById(req.params.id)
     //.populate('fragments')
     .sort([['createdat', 'ascending']])
     .exec(function (err, story) {
@@ -92,6 +91,25 @@ exports.story_fragment_create_post = function(req, res, next) {
 
     fragment.save(function (err) {
         if (err) { return next(err); }
-        res.redirect('/story/'+req.params.id);
+        res.redirect('/story/' + req.params.id);
+    });
+};
+
+exports.story_fragment_compile_post = function(req, res, next) {
+    Story.findById(req.params.id).exec(function (err, story) {
+      if (err) { return next(err); }
+      Fragment.find().exec(function (err, fragments) {
+          if (err) { return next(err); }
+          var compiled_story = "";
+          fragments.forEach(function(fragment) {
+            compiled_story += fragment.data + " ";
+          });
+          res.render('compiledstory', {
+              id: req.params.id,
+              loggedUser: req.user,
+              full_story: compiled_story,
+              title: story.title
+          });
+      });
     });
 };
