@@ -3,9 +3,10 @@ var story_controller = require('../controllers/story_controller');
 module.exports = function(app, passport) {
   // all pages need a title!
   app.get('/',  function(req, res){
-    res.redirect('/1');
+    res.redirect('/storypage/1');
   });
-  app.get('/:page',  story_controller.story_list);
+  
+  app.get('/storypage/:page',  story_controller.story_list);
 
   app.get('/story/:id', story_controller.story_fragments_list);
 

@@ -30,7 +30,7 @@
           <% if (current == 1) { %>
               <li class="disabled"><a>Inicio</a></li>
           <% } else { %>
-              <li><a href="/1">Inicio</a></li>
+              <li><a href="/storypage/1">Inicio</a></li>
           <% } %>
           <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
           <% if (i !== 1) { %>
@@ -40,7 +40,7 @@
               <% if (i == current) { %>
                   <li class="active"><a><%= i %></a></li>
               <% } else { %>
-                  <li><a href="/<%= i %>"><%= i %></a></li>
+                  <li><a href="/storypage/<%= i %>"><%= i %></a></li>
               <% } %>
               <% if (i == Number(current) + 4 && i < pages) { %>
                   <li class="disabled"><a>...</a></li>
@@ -49,7 +49,7 @@
           <% if (current == pages) { %>
               <li class="disabled"><a>Fim</a></li>
           <% } else { %>
-              <li><a href="/<%= pages %>">Fim</a></li>
+              <li><a href="/storypage/<%= pages %>">Fim</a></li>
           <% } %>
       </ul>
   <% } %>
