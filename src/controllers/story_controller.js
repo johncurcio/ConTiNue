@@ -84,7 +84,7 @@ exports.story_fragment_create_post = function(req, res, next) {
     var fragment = new Fragment({
         author: req.user,
         data: sanitizeHtml(req.body.data,{
-          allowedTags: [ 'blockquote',  'a', 'ul', 'ol', 'nl', 'li', 'b', 'i', 'strong', 
+          allowedTags: [ 'p', 'blockquote',  'a', 'ul', 'ol', 'nl', 'li', 'b', 'i', 'strong', 
                          'em', 'strike', 'code', 'hr', 'br', 'caption', 'pre', 'u' ],
           allowedAttributes: {
             'a': [ 'href', 'name', 'target' ]
