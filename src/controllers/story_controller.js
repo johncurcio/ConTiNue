@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Story    = require('../models/story')
 var Fragment = require('../models/fragment')
+var sanitizeHtml = require('sanitize-html');
 
 // Display list of all Stories
 exports.story_list = function(req, res, next) {
@@ -82,7 +83,9 @@ exports.story_fragment_create_post = function(req, res, next) {
     var id = mongoose.Types.ObjectId(req.params.id); 
     var fragment = new Fragment({
         author: req.user,
-        data: req.body.data
+        data: sanitizeHtml(req.body.data, {
+              allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
+        })
     });
 
     Story.findByIdAndUpdate(id, {$push: { fragments: fragment }}, {safe: true, upsert: true},

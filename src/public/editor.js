@@ -2,7 +2,7 @@ var quill = new Quill('#editor', {
   modules: {
     toolbar: [
       ['bold', 'italic', 'underline'],
-      ['link', 'blockquote', 'code-block', 'image'],
+      ['link', 'blockquote', 'code-block'],
       [{ list: 'ordered' }, { list: 'bullet' }]
     ]
   },
