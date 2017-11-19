@@ -114,7 +114,8 @@ exports.story_fragment_compile_post = function(req, res, next) {
               id: req.params.id,
               loggedUser: req.user,
               full_story: compiled_story,
-              title: story.title
+              title: story.title,
+              story: story
           });
     });
 };

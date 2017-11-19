@@ -6,6 +6,9 @@
     <%- include('partials/header') %>
 
     <div>
+        <h2><%= story.title %></h2>
+        <p><em>"<%= story.synopsis %>"</em></p>
+        <p>história criada por <a href="#"><%= story.author.local.username %></a></p>
 
         <div class="compile-fragments">
           <form action="/story/<%= id %>/" method="get">
