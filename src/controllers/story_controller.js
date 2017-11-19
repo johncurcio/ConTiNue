@@ -15,6 +15,7 @@ exports.story_list = function(req, res, next) {
         Story.count().exec(function (err, count) {
             if (err) { return next(err); }
             //Successful, so render
+            req.session.returnTo = req.url;
             res.render('index', { 
                   title: 'ConTiNue', 
                   stories: list_stories, 
@@ -34,6 +35,7 @@ exports.story_fragments_list = function(req, res, next) {
     .exec(function (err, story) {
       if (err) { return next(err); }
       //Successful, so render
+      req.session.returnTo = req.url;
       res.render('story', { 
             id: story._id,
             author: story.author,

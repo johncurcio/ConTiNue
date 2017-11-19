@@ -3,18 +3,18 @@ var user_controller = require('../controllers/user_controller');
 
 module.exports = function(app, passport) {  
   // all pages need a title!
-  app.get('/',  function(req, res){
+  app.get('/', function(req, res){
     res.redirect('/storypage/1');
   });
   
-  app.get('/storypage/:page',  story_controller.story_list);
+  app.get('/storypage/:page', story_controller.story_list);
 
   app.get('/story/:id', story_controller.story_fragments_list);
 
   app.get('/login', user_controller.user_login_get);
 
   app.post('/login', passport.authenticate('local-login', {
-      successRedirect : '/', 
+      successReturnToOrRedirect : '/', 
       failureRedirect : '/login', 
       failureFlash : true
   }));
@@ -31,9 +31,9 @@ module.exports = function(app, passport) {
 
   app.get('/addStory', isLoggedIn, story_controller.story_create_get);
 
-  app.post('/addStory', story_controller.story_create_post );
+  app.post('/addStory', isLoggedIn, story_controller.story_create_post );
 
-  app.post('/story/:id/addFragment', story_controller.story_fragment_create_post );
+  app.post('/story/:id/addFragment', isLoggedIn, story_controller.story_fragment_create_post );
 
   app.post('/story/:id/compiledStory', story_controller.story_fragment_compile_post );
 
@@ -43,7 +43,7 @@ module.exports = function(app, passport) {
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
+    req.session.returnTo = req.url; 
     res.redirect('/login');
 }
-
 
