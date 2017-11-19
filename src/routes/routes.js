@@ -1,6 +1,7 @@
 var story_controller = require('../controllers/story_controller');
+var user_controller = require('../controllers/user_controller');
 
-module.exports = function(app, passport) {
+module.exports = function(app, passport) {  
   // all pages need a title!
   app.get('/',  function(req, res){
     res.redirect('/storypage/1');
@@ -10,13 +11,7 @@ module.exports = function(app, passport) {
 
   app.get('/story/:id', story_controller.story_fragments_list);
 
-  app.get('/login', function(req, res) {
-      res.render('login', { 
-        title: 'Entrar | ConTiNue', 
-        message: req.flash('loginMessage'), 
-        loggedUser: req.user 
-      }); 
-  });
+  app.get('/login', user_controller.user_login_get);
 
   app.post('/login', passport.authenticate('local-login', {
       successRedirect : '/', 
@@ -24,13 +19,7 @@ module.exports = function(app, passport) {
       failureFlash : true
   }));
 
-  app.get('/signup', function(req, res) {
-      res.render('signup', { 
-        title: 'Registre-se | ConTiNue', 
-        message: req.flash('signupMessage'), 
-        loggedUser: req.user 
-      });
-  });
+  app.get('/signup', user_controller.user_signup_get);
 
   app.post('/signup', passport.authenticate('local-signup', {
       successRedirect : '/', 
@@ -38,10 +27,7 @@ module.exports = function(app, passport) {
       failureFlash : true // allow flash messages
   }));
 
-  app.get('/logout', function(req, res) {
-      req.logout();
-      res.redirect('/');
-  });
+  app.get('/logout', user_controller.user_logout_get);
 
   app.get('/addStory', isLoggedIn, story_controller.story_create_get);
 

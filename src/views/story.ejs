@@ -21,7 +21,7 @@
                 <div class="list-group">
                   <% fragments.forEach((fragment) => { %>
                     <a href="#" class="list-group-item">
-                      <h4 class="list-group-item-heading"><%= fragment.data %></h4>
+                      <h4 class="list-group-item-heading"><%- fragment.data %></h4>
                       <p class="list-group-item-text"><%= fragment.author.local.username %></p>
                       <p class="list-group-item-text"><%= fragment.modifiedat %></p>
                       <p class="list-group-item-text"><%= fragment.createdat %></p>
@@ -32,14 +32,16 @@
         </div>
 
         <% if (loggedUser) {%>
-          <div class="fragment">
-            <form action="/story/<%= id %>/addFragment" method="post">
-                <div class="form-group">
-                    <textarea class="form-control" name="data">Conte sua história...</textarea> 
-                </div>
-                <button type="submit" class="btn btn-info btn-sm">Adicionar Fragmento</button>
+          <div id="form-container">
+            <form name="q-editor" action="/story/<%= id %>/addFragment" method="post">
+              <div class="row form-group">
+                <input name="data" type="hidden">
+                <div id="editor"></div>
+              </div>
+              <button type="submit" class="btn btn-info btn-sm">Adicionar Fragmento</button>
             </form>
           </div>
+          <script src="../../editor.js"></script>
         <%}%>
     </div>
 </div>

@@ -3,6 +3,12 @@ body {
     padding-bottom: 20px;
 }
 
+#form-container {
+  width: 96%;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .jumbotron {
     margin-top: 10px;
 }
