@@ -7,6 +7,7 @@ exports.story_list = function(req, res, next) {
     var perPage = 4 //change this to add more pages
     var page    = req.params.page || 1
     Story.find()
+    .sort([['createdat', 'descending']])
     .skip((perPage * page) - perPage)
     .limit(perPage)
     .exec(function (err, list_stories) {
@@ -98,10 +99,8 @@ exports.story_fragment_create_post = function(req, res, next) {
 exports.story_fragment_compile_post = function(req, res, next) {
     Story.findById(req.params.id).exec(function (err, story) {
       if (err) { return next(err); }
-      Fragment.find().exec(function (err, fragments) {
-          if (err) { return next(err); }
           var compiled_story = "";
-          fragments.forEach(function(fragment) {
+          story.fragments.forEach(function(fragment) {
             compiled_story += fragment.data + " ";
           });
           res.render('compiledstory', {
@@ -110,6 +109,5 @@ exports.story_fragment_compile_post = function(req, res, next) {
               full_story: compiled_story,
               title: story.title
           });
-      });
     });
 };
