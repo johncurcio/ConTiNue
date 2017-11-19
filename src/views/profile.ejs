@@ -1,0 +1,18 @@
+<%- include('partials/head') %>
+
+<div class="container">
+    <%- include('partials/header') %>
+    <div class="stories">
+        <h1>Histórias por <%=stories[0].author.local.username%></h1>
+        <%- include('partials/stories') %>
+    </div>
+
+
+    <div class="fragments">
+        <hr/>
+        <h1>Fragmentos por <%=fragments[0].author.local.username%></h1>
+        <%- include('partials/fragments') %>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

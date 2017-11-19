@@ -10,20 +10,7 @@
         <p class="lead">Veja nossas histórias sendo criadas!</p>
     </div>
 
-    <div class="row">
-      <% stories.forEach((story) => { %>
-        <div class="col-lg-3">
-          <a href="/story/<%= story.id %>" class="list-group-item justify-content-between">
-            <span class="badge badge-default badge-pill"><%= story.fragments.length %></span>
-            <h4 class="list-group-item-heading"><%= story.title %></h4>
-            <p class="list-group-item-text"><%= story.author.local.username %></p>
-            <p class="list-group-item-text"><em><%= story.synopsis %></em></p>
-            <p class="list-group-item-text"><%= story.genre %></p>
-            <p class="list-group-item-text"><%= story.createdat %></p>
-          </a>
-        </div>
-      <% }) %>
-    </div>
+    <%- include('partials/stories') %>
 
     <% if (pages > 0) { %>
       <ul class="pagination text-center">

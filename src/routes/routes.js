@@ -38,6 +38,8 @@ module.exports = function(app, passport) {
   app.post('/story/:id/compiledStory', story_controller.story_fragment_compile_post );
 
   app.get('/story/:id/compiledStory', story_controller.story_fragment_compile_post );
+
+  app.get('/profile/:user', story_controller.story_and_fragments_by_author );
 }
 
 function isLoggedIn(req, res, next) {

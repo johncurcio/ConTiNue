@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="list-group">
+          <% fragments.forEach((fragment) => { %>
+            <a href="/story/<%=fragment.story_id%>" class="list-group-item no-outline">
+              <h4 class="list-group-item-heading"><%- fragment.data %></h4>
+              <object class="list-group-item-text">
+                <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>
+              </object>
+              <p class="list-group-item-text"><%= fragment.modifiedat %></p>
+              <p class="list-group-item-text"><%= fragment.createdat %></p>
+            </a>
+          <% }) %>
+        </div>
+    </div>
+</div>

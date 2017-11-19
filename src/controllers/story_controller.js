@@ -85,6 +85,7 @@ exports.story_fragment_create_post = function(req, res, next) {
     var id = mongoose.Types.ObjectId(req.params.id); 
     var fragment = new Fragment({
         author: req.user,
+        story_id: id, 
         data: sanitizeHtml(req.body.data,{
           allowedTags: [ 'p', 'blockquote',  'a', 'ul', 'ol', 'nl', 'li', 'b', 'i', 'strong', 
                          'em', 'strike', 'code', 'hr', 'br', 'caption', 'pre', 'u' ],
@@ -119,5 +120,21 @@ exports.story_fragment_compile_post = function(req, res, next) {
               title: story.title,
               story: story
           });
+    });
+};
+
+
+exports.story_and_fragments_by_author = function(req, res, next){
+    Story.find({"author":req.params.user}).exec(function(err, stories){
+      if (err) { return next(err); }
+      Fragment.find({"author":req.params.user}).exec(function(errf, fragments){
+        if (errf) { return next(errf); }
+        res.render('profile', {
+          loggedUser: req.user,
+          title: 'Perfil' ,
+          stories: stories,
+          fragments: fragments 
+        });
+      });
     });
 };

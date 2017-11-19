@@ -8,7 +8,9 @@
     <div>
         <h2><%= title %></h2>
         <p><em>"<%= synopsis %>"</em></p>
-        <p>história criada por <a href="#"><%= author.local.username %></a></p>
+        <p>história criada por 
+          <a href="/profile/<%=author._id%>"><%= author.local.username %></a>
+        </p>
 
         <div class="compile-fragments">
           <form action="/story/<%= id %>/compiledStory" method="post">
@@ -16,20 +18,7 @@
           </form>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="list-group">
-                  <% fragments.forEach((fragment) => { %>
-                    <button class="list-group-item no-outline">
-                      <h4 class="list-group-item-heading"><%- fragment.data %></h4>
-                      <p class="list-group-item-text"><%= fragment.author.local.username %></p>
-                      <p class="list-group-item-text"><%= fragment.modifiedat %></p>
-                      <p class="list-group-item-text"><%= fragment.createdat %></p>
-                    </button>
-                  <% }) %>
-                </div>
-            </div>
-        </div>
+        <%- include('partials/fragments') %>
 
         <% if (loggedUser) {%>
           <div id="form-container">

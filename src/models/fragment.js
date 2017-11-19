@@ -5,7 +5,8 @@ var fragmentSchema = Schema({
     author      : { type: Schema.ObjectId, ref: 'User', required: true },
     data        : String,
     createdat   : { type: Date, default: Date.now },
-    modifieddat : { type: Date, default: Date.now }
+    modifieddat : { type: Date, default: Date.now },
+    story_id    : { type: Schema.ObjectId, ref: 'Story', required: true }
 });
 
 var autoPopulateAuthor = function(next) {
