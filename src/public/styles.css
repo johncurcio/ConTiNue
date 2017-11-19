@@ -13,6 +13,7 @@ body {
     margin-top: 10px;
 }
 
-.user {
-	
+.no-outline {
+    display:block;
+    outline:none;
 }

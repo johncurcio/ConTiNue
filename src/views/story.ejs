@@ -20,12 +20,12 @@
             <div class="col-md-12">
                 <div class="list-group">
                   <% fragments.forEach((fragment) => { %>
-                    <a href="#" class="list-group-item">
+                    <button class="list-group-item no-outline">
                       <h4 class="list-group-item-heading"><%- fragment.data %></h4>
                       <p class="list-group-item-text"><%= fragment.author.local.username %></p>
                       <p class="list-group-item-text"><%= fragment.modifiedat %></p>
                       <p class="list-group-item-text"><%= fragment.createdat %></p>
-                    </a>
+                    </button>
                   <% }) %>
                 </div>
             </div>

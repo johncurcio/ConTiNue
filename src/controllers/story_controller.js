@@ -83,8 +83,12 @@ exports.story_fragment_create_post = function(req, res, next) {
     var id = mongoose.Types.ObjectId(req.params.id); 
     var fragment = new Fragment({
         author: req.user,
-        data: sanitizeHtml(req.body.data, {
-              allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
+        data: sanitizeHtml(req.body.data,{
+          allowedTags: [ 'blockquote',  'a', 'ul', 'ol', 'nl', 'li', 'b', 'i', 'strong', 
+                         'em', 'strike', 'code', 'hr', 'br', 'caption', 'pre', 'u' ],
+          allowedAttributes: {
+            'a': [ 'href', 'name', 'target' ]
+          }
         })
     });
 
