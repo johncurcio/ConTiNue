@@ -1,17 +1,19 @@
-<div class="row">
-  <% stories.forEach((story) => { %>
-    <div class="col-lg-3">
-      <a href="/story/<%= story.id %>" class="list-group-item justify-content-between">
-        <span class="badge badge-default badge-pill"><%= story.fragments.length %></span>
-        <h4 class="list-group-item-heading"><%= story.title %></h4>
-        <object class="list-group-item-text">
-          <small>criada por </small> 
-          <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %></a>
-        </object>
-        <p class="list-group-item-text"><em><%= story.synopsis %></em></p>
-        <p class="list-group-item-text"><%= story.genre %></p>
-        <small class="list-group-item-text"><%= story.createdat %></small>
-      </a>
-    </div>
-  <% }) %>
+<div class = "row">
+<% stories.forEach((story) => { %>
+  <div class="col-md-4 col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <a href="/story/<%= story.id %>" class="pull-right">Ler História (<%= story.fragments.length%>)</a> 
+          <h4 class="title"><%= story.title %></h4>
+        </div>
+        <div class="panel-body">
+          <p class = "synopsis"><small>Sinopse: </small><%= story.synopsis %></p>
+          <p class = "genre"><small>Genero: </small><%= story.genre %></p>
+          <p><small>Criado por: </small><a href="#"><%= story.author.local.username %></a></p>
+          <hr>
+          <small><%= story.createdat %></small>
+        </div>
+      </div> 
+  </div>
+<% }) %>
 </div>

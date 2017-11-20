@@ -5,7 +5,7 @@ var sanitizeHtml = require('sanitize-html');
 
 // Display list of all Stories
 exports.story_list = function(req, res, next) {
-    var perPage = 4 //change this to add more pages
+    var perPage = 6 //change this to add more pages
     var page    = req.params.page || 1
     Story.find()
     .sort([['createdat', 'descending']])
@@ -30,7 +30,6 @@ exports.story_list = function(req, res, next) {
 
 exports.story_fragments_list = function(req, res, next) {
     Story.findById(req.params.id)
-    //.populate('fragments')
     .sort([['createdat', 'ascending']])
     .exec(function (err, story) {
       if (err) { return next(err); }

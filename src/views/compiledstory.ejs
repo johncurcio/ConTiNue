@@ -8,18 +8,21 @@
     <div>
         <h2><%= story.title %></h2>
         <p><em>"<%= story.synopsis %>"</em></p>
-        <p>história criada por <a href="#"><%= story.author.local.username %></a></p>
+        <p>história criada por <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %></a></p>
 
-        <div class="compile-fragments">
-          <form action="/story/<%= id %>/" method="get">
-              <button type="submit" class="btn btn-success btn-sm">Voltar</button>
-          </form>
-        </div>
+        <ul class="nav nav-tabs">
+            <li><a class="nav-link" href="/story/<%= id %>">Fragmentos</a></li>
+            <li class="active"><a class="nav-link active" href="/story/<%= id %>/compiledStory">Compilar Fragmentos</a></li>
+        </ul>
         
-        <div class="row">
-            <div class="col-md-12">
+        <div class="container panel panel-default">
+          <div class="row fragment">
+            <div class="col-sm-10 col-xs-10"> 
+              <h1><%= story.title %></h1> 
               <p><%- full_story %></p>
+              <p></p>
             </div>
+          </div>
         </div>
     </div>
 </div>

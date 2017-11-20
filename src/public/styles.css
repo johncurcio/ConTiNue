@@ -17,3 +17,13 @@ body {
     display:block;
     outline:none;
 }
+
+.fragment {
+    margin-top: 10px;
+    margin-left: 2px;
+    margin-right: 5px;
+}
+
+.container.panel {
+    padding: 0px;
+}

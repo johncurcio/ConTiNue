@@ -2,7 +2,7 @@
   <% fragments.forEach((fragment) => { %>
     <div class="col-md-12">
         <div class="list-group">
-            <a href="/story/<%=fragment.story_id%>" class="list-group-item no-outline">
+            <a href="/story/<%=fragment.story_id%>#<%=fragment._id%>" class="list-group-item no-outline">
               <h4 class="list-group-item-heading"><%- fragment.data %></h4>
               <object class="list-group-item-text">
                 <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>

@@ -12,8 +12,9 @@
 
     <%- include('partials/stories') %>
 
+    <div class="col-sm-12 text-center">
     <% if (pages > 0) { %>
-      <ul class="pagination text-center">
+      <ul class="pagination center-block"  style="display:inline-block;">
           <% if (current == 1) { %>
               <li class="disabled"><a>Inicio</a></li>
           <% } else { %>
@@ -40,7 +41,7 @@
           <% } %>
       </ul>
   <% } %>
-
+  </div>
 </div>
 
 <%- include('partials/footer') %>
