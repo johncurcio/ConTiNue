@@ -87,7 +87,8 @@ exports.story_fragment_create_post = function(req, res, next) {
         story_id: id, 
         data: sanitizeHtml(req.body.data,{
           allowedTags: [ 'p', 'blockquote',  'a', 'ul', 'ol', 'nl', 'li', 'b', 'i', 'strong', 
-                         'em', 'strike', 'code', 'hr', 'br', 'caption', 'pre', 'u' ],
+                         'em', 'strike', 'code', 'hr', 'br', 'caption', 'pre', 'u', 'sub', 'sup',
+                         'strike', 'span' ],
           allowedAttributes: {
             'a': [ 'href', 'name', 'target' ]
           }

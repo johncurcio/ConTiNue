@@ -18,13 +18,21 @@
         <div class="container panel panel-default">
           <div class="row fragment">
             <div class="col-sm-10 col-xs-10"> 
-              <h1><%= story.title %></h1> 
-              <p><%- full_story %></p>
-              <p></p>
+              <div id="scrolling-container">
+                <div id="quill-container">
+                  <h1><%= story.title %></h1> 
+                  <p><%- full_story %></p>
+                  <p></p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <a id="download" data-filename="<%= story.title %>" class="btn btn-info">download</a>
     </div>
 </div>
+
+
+<script src="../../fragmentEditor.js"></script>
 
 <%- include('partials/footer') %>
