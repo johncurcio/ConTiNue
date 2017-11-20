@@ -1,5 +1,16 @@
 <div class = "row">
 <% stories.forEach((story) => { %>
+  <%
+     var monthNames = [
+          "Janeiro", "Fevereiro", "Março",
+          "Abril", "Maio", "Junho", "Julho",
+          "Agosto", "Setembro", "Outubro",
+          "Novembro", "Dezembro"
+       ];
+     var d = story.createdat.getDate();
+     var m = monthNames[story.createdat.getMonth()];
+     var y = story.createdat.getFullYear();
+   %>
   <div class="col-md-4 col-sm-6">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -11,7 +22,7 @@
           <p class = "genre"><small>Genero: </small><%= story.genre %></p>
           <p><small>Criado por: </small><a href="#"><%= story.author.local.username %></a></p>
           <hr>
-          <small><%= story.createdat %></small>
+          <small><small>Criado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
         </div>
       </div> 
   </div>
