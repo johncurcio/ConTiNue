@@ -13,8 +13,9 @@
         </p>
 
         <ul class="nav nav-tabs">
-            <li class="active"><a class="nav-link active" href="/story/<%= id %>">Fragmentos</a></li>
+            <li class="active"><a class="nav-link active" href="#">Fragmentos</a></li>
             <li><a class="nav-link" href="/story/<%= id %>/compiledStory">Compilar Fragmentos</a></li>
+            <li><a class="nav-link" href="/story/<%= id %>/dashboard">Dashboard</a></li>
         </ul>
         
           <div class="container-fluid panel panel-default">
@@ -29,6 +30,9 @@
                var d = fragment.createdat.getDate();
                var m = monthNames[fragment.createdat.getMonth()];
                var y = fragment.createdat.getFullYear();
+               var modd = fragment.modifieddat.getDate();
+               var modm = monthNames[fragment.modifieddat.getMonth()];
+               var mody = fragment.modifieddat.getFullYear();
              %>
             <div class="row fragment">
               <a href="/story/<%=id%>#<%=fragment._id%>"></a>
@@ -43,13 +47,10 @@
                         <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>
                       </object>
                       </p>
-                      <!--<p>
-                        <small><small>Modificado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
-                        <small>por</small> 
-                        <object>
-                        <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>
+                      <p>
+                        <small><small>Modificado da última vez em: </small> <%= modd+ ' de '  +modm+ ' de ' +mody %></small>
                       </object>
-                      </p>-->
+                      </p>
                     </div>
                   </div>        
               </div><!--/col-->

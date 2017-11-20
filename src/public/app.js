@@ -22,4 +22,5 @@ $(document).ready(function() {
 		if (text.length > n)
 	   		return jQuery.trim(text).substring(0, n) + "...";
 	});
+
 });

@@ -45,6 +45,17 @@ module.exports = function(app, passport) {
   app.get('/story/:id/compiledStory', story_controller.story_fragment_compile_post );
 
   app.get('/profile/:user', story_controller.story_and_fragments_by_author );
+
+  app.get('/story/:id/dashboard', isLoggedIn, story_controller.dashboard_get );
+
+  app.post('/story/:id/dashboard/updateFragment/:fragmentId', isLoggedIn, story_controller.fragment_update_post );
+
+  app.get('/story/:id/dashboard/deleteFragment/:fragmentId', isLoggedIn, story_controller.fragment_delete_get );
+
+  app.post('/story/:id/dashboard/updateStory', isLoggedIn, story_controller.story_update_post );
+
+  app.post('/story/:id/dashboard/deleteStory', isLoggedIn, story_controller.story_delete_post );
+
 }
 
 function isLoggedIn(req, res, next) {

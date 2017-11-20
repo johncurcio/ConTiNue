@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Story    = require('../models/story')
 var Fragment = require('../models/fragment')
+var Vote = require('../models/vote')
 var sanitizeHtml = require('sanitize-html');
 
 // Display list of all Stories
@@ -138,3 +139,84 @@ exports.story_and_fragments_by_author = function(req, res, next){
       });
     });
 };
+
+exports.dashboard_get = function(req, res) {
+  Story.findById(req.params.id).exec(function (err, story) {
+    if (err) { return next(err); }
+        res.render('dashboard', {
+            id: req.params.id,
+            loggedUser: req.user,
+            title: story.title,
+            story: story
+        });
+  });
+};
+
+exports.fragment_update_post = function(req, res, next) {
+    var id = mongoose.Types.ObjectId(req.params.fragmentId); 
+    var data = sanitizeHtml(req.body.data,{
+          allowedTags: [ 'p', 'blockquote',  'a', 'ul', 'ol', 'nl', 'li', 'b', 'i', 'strong', 
+                         'em', 'strike', 'code', 'hr', 'br', 'caption', 'pre', 'u', 'sub', 'sup',
+                         'strike', 'span' ],
+          allowedAttributes: {
+            'a': [ 'href', 'name', 'target' ]
+          }
+        });
+
+    Fragment.findByIdAndUpdate(id, { data: data, modifieddat: new Date() }, {safe: true, upsert: false},
+        function(err, model) {
+            if (err) { return next(err); }
+            res.redirect('/story/' + req.params.id + '/dashboard');
+        });
+};
+
+exports.fragment_delete_get = function(req, res, next) {
+    var id = mongoose.Types.ObjectId(req.params.fragmentId); 
+    Fragment.remove({ id: id }, function (err) {
+      if (err) return handleError(err);
+      // middleware will remove the votes. Now we need to update the story
+      Story.update({_id: req.params.id}, 
+                   {$pull: {fragments: id}}, 
+                    function (err, numberAffected) {
+                      if (!err){
+                        console.log(numberAffected);
+                      } else {
+                        console.log(err);                                      
+                      }
+        });
+      Vote.remove({ fragment: id }, function (err) {
+        if (err) return console.log(err);
+      });
+      res.redirect('/story/' + req.params.id + '/dashboard');
+    });
+};
+
+exports.story_update_post = function(req, res, next) {
+    var id = mongoose.Types.ObjectId(req.params.id); 
+    var title = req.body.title;
+    var synopsis = req.body.synopsis;
+    var genre = req.body.genre;
+    console.log(title);
+
+    Story.update({_id: req.params.id}, { $set: { title: title, synopsis: synopsis, genre: genre }},
+        function(err, callback) {
+            if (err) { return next(err); }
+            res.redirect('/story/' + req.params.id + '/dashboard');
+        });
+};
+
+exports.story_delete_post = function(req, res, next) {
+    var id = mongoose.Types.ObjectId(req.params.id); 
+    Story.remove({ _id: id }, function (err) {
+      if (err) return handleError(err);
+      Fragment.find({ story_id: id }).exec(function(err, fragments){
+        if (err) return handleError(err);
+        fragments.forEach(function (fragment) {
+          Vote.remove({fragment: fragment}, function(err){
+            res.redirect('/profile/'+req.user._id);
+          })
+        })
+      });
+    });
+};
+
