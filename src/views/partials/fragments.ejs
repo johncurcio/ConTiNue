@@ -1,7 +1,7 @@
 <div class="row">
-    <div class="col-md-12">
+  <% fragments.forEach((fragment) => { %>
+    <div class="col-md-10">
         <div class="list-group">
-          <% fragments.forEach((fragment) => { %>
             <a href="/story/<%=fragment.story_id%>" class="list-group-item no-outline">
               <h4 class="list-group-item-heading"><%- fragment.data %></h4>
               <object class="list-group-item-text">
@@ -10,7 +10,63 @@
               <p class="list-group-item-text"><%= fragment.modifiedat %></p>
               <p class="list-group-item-text"><%= fragment.createdat %></p>
             </a>
-          <% }) %>
         </div>
     </div>
+    <% if (loggedUser) {%>
+      <div class="col-md-2">
+        <input id="url" name="url" type="hidden" value="/story/<%=id%>/upvote">
+        <button id='upvote<%=fragment._id%>' data-fragment="<%=fragment._id%>"
+          data-user="<%=loggedUser._id%>">
+          upvote
+        </button>
+        <h4 id="<%=fragment._id%>">0</h4>
+        <button id='downvote<%=fragment._id%>'>downvote</button>
+      </div>
+      <script type="text/javascript">
+        function updatevotes(){
+          $.ajax({
+             method: "GET",
+             url: $("#url").val()
+          })
+           .done(function( data ) {
+              console.log(data);
+              var arr = data.votes;
+              var gp = arr.reduce(function (r, o) {
+                  (r[o.fragment])? r[o.fragment] += o.vote : r[o.fragment] = o.vote;
+                  return r;
+              }, {});
+              jQuery.each(gp, function(i, val) {
+                $("#" + i).html(document.createTextNode(val));
+              });
+              console.log(gp);
+          });
+        }
+        function vote(type, vote){
+          $('#'+type+'<%=fragment._id%>').click(function() {
+              $.ajax({
+                  global: false,
+                  type: 'POST',
+                  url: $("#url").val(),
+                  dataType: 'html',
+                  data: {
+                      fragment: '<%=fragment._id%>',
+                      user: '<%=loggedUser._id%>',
+                      vote: vote
+                  },
+                  success: function (result) {
+                      console.log(result);
+                  },
+                  error: function (request, status, error) {
+                      serviceError();
+                  }
+              });
+              updatevotes();
+          });
+        }
+        vote('upvote', 1);
+        vote('downvote', -1);
+        updatevotes();
+      </script>
+    <%}%>
+    <% }) %>
 </div>

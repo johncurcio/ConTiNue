@@ -1,5 +1,6 @@
 var story_controller = require('../controllers/story_controller');
 var user_controller = require('../controllers/user_controller');
+var vote_controller = require('../controllers/vote_controller');
 
 module.exports = function(app, passport) {  
   // all pages need a title!
@@ -10,6 +11,10 @@ module.exports = function(app, passport) {
   app.get('/storypage/:page', story_controller.story_list);
 
   app.get('/story/:id', story_controller.story_fragments_list);
+
+  app.post('/story/:id/upvote', vote_controller.upvote);
+
+  app.get('/story/:id/upvote', vote_controller.votes);
 
   app.get('/login', user_controller.user_login_get);
 
