@@ -4,7 +4,9 @@
         <ul class="nav nav-pills pull-right">
         	<% if (loggedUser) { %>
         		<li role="presentation"><a class='user' href="/profile/<%=loggedUser._id%>"><%= loggedUser.local.username %></a></li>
-                <li role="presentation"><a href="/addStory">+ história</a></li>
+                <li role="presentation"><a href="/addStory">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <strong> história</strong></a>
+                </li>
             	<li role="presentation"><a href="/logout">Sair</a></li>
             <% } else { %>
             	<li role="presentation"><a href="/login">Entrar</a></li>
