@@ -5,11 +5,12 @@
         <span class="badge badge-default badge-pill"><%= story.fragments.length %></span>
         <h4 class="list-group-item-heading"><%= story.title %></h4>
         <object class="list-group-item-text">
+          <small>criada por </small> 
           <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %></a>
         </object>
         <p class="list-group-item-text"><em><%= story.synopsis %></em></p>
         <p class="list-group-item-text"><%= story.genre %></p>
-        <p class="list-group-item-text"><%= story.createdat %></p>
+        <small class="list-group-item-text"><%= story.createdat %></small>
       </a>
     </div>
   <% }) %>
