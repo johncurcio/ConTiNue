@@ -19,16 +19,37 @@
         
           <div class="container-fluid panel panel-default">
             <% fragments.forEach((fragment) => { %>
+            <%
+               var monthNames = [
+                    "Janeiro", "Fevereiro", "Março",
+                    "Abril", "Maio", "Junho", "Julho",
+                    "Agosto", "Setembro", "Outubro",
+                    "Novembro", "Dezembro"
+                 ];
+               var d = fragment.createdat.getDate();
+               var m = monthNames[fragment.createdat.getMonth()];
+               var y = fragment.createdat.getFullYear();
+             %>
             <div class="row fragment">
               <a href="/story/<%=id%>#<%=fragment._id%>"></a>
               <div class="col-sm-10 col-xs-10">  
                   <div class="">
                     <div class="panel-body">
                       <p><%- fragment.data %></p>
-                      <object>
+                      <p>
+                        <small><small>Adicionado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
+                        <small>por</small> 
+                        <object>
                         <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>
                       </object>
-                      <p><small class="text-muted"><%= fragment.createdat %></small></p>
+                      </p>
+                      <!--<p>
+                        <small><small>Modificado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
+                        <small>por</small> 
+                        <object>
+                        <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>
+                      </object>
+                      </p>-->
                     </div>
                   </div>        
               </div><!--/col-->
