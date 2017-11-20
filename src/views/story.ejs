@@ -17,7 +17,7 @@
             <li><a class="nav-link" href="/story/<%= id %>/compiledStory">Compilar Fragmentos</a></li>
         </ul>
         
-          <div class="container panel panel-default">
+          <div class="container-fluid panel panel-default">
             <% fragments.forEach((fragment) => { %>
             <div class="row fragment">
               <a href="/story/<%=id%>#<%=fragment._id%>"></a>
@@ -103,7 +103,7 @@
         </div>
 
         <div class="row">
-          <div class="col-sm-12 col-xs-12"> 
+          <div class="col-sm-11 col-xs-11"> 
           <% if (loggedUser) { %>
             <div id="form-container">
               <form name="q-editor" action="/story/<%= id %>/addFragment" method="post">
