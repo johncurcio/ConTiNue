@@ -12,9 +12,9 @@
         	<p><input class="edit-genre"  name="genre" value="<%= story.genre %>"/></p>
         	<p>história criada por <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %>	</a></p>
         	<div class="pull-right">
-        		<button type="submit"  formaction="/story/<%= id %>/dashboard/closeStory" class = 'btn btn-info'>arquivar história</button>
-        	    <button type="submit" class = 'btn btn-success' formaction="/story/<%= id %>/dashboard/updateStory">salvar mudanças</button>
-        	    <button type="submit"  formaction="/story/<%= id %>/dashboard/deleteStory" class = 'btn btn-danger'>deletar história</button>
+        		<button type="submit"  formaction="/story/<%= id %>/dashboard/closeStory" class = 'btn btn-info btn-xs'>arquivar história</button>
+        	    <button type="submit" class = 'btn btn-success btn-xs' formaction="/story/<%= id %>/dashboard/updateStory">salvar mudanças</button>
+        	    <button type="submit"  formaction="/story/<%= id %>/dashboard/deleteStory" class = 'btn btn-danger btn-xs'>deletar história</button>
         	</div>
     	</form>
         <ul class="nav nav-tabs">

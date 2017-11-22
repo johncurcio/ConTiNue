@@ -174,14 +174,13 @@ exports.fragment_delete_get = function(req, res, next) {
     var id = mongoose.Types.ObjectId(req.params.fragmentId); 
     Fragment.remove({ id: id }, function (err) {
       if (err) return handleError(err);
-      // middleware will remove the votes. Now we need to update the story
       Story.update({_id: req.params.id}, 
                    {$pull: {fragments: id}}, 
                     function (err, numberAffected) {
                       if (!err){
                         console.log(numberAffected);
                       } else {
-                        console.log(err);                                      
+                        console.log(err);                
                       }
         });
       Vote.remove({ fragment: id }, function (err) {
