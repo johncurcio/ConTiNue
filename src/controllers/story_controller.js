@@ -37,13 +37,8 @@ exports.story_fragments_list = function(req, res, next) {
       //Successful, so render
       req.session.returnTo = req.url;
       res.render('story', { 
-            id: story._id,
-            author: story.author,
-            synopsis: story.synopsis,
+            story: story,
             title: story.title,
-            genre: story.genre,
-            createdat: story.createdat,
-            fragments: story.fragments,  
             loggedUser: req.user
         });
     });
@@ -69,13 +64,8 @@ exports.story_create_post = function(req, res, next) {
     story.save(function (err) {
         if (err) { return next(err); }
         res.render('story', { 
-            id: story._id,
-            author: story.author,
-            synopsis: story.synopsis,
-            title: story.title,
-            genre: story.genre,
-            createdat: story.createdat,
-            fragments: story.fragments,  
+            story: story,
+            title: story.title,  
             loggedUser: req.user
         });
     });
@@ -144,7 +134,6 @@ exports.dashboard_get = function(req, res) {
   Story.findById(req.params.id).exec(function (err, story) {
     if (err) { return next(err); }
         res.render('dashboard', {
-            id: req.params.id,
             loggedUser: req.user,
             title: story.title,
             story: story
@@ -216,6 +205,24 @@ exports.story_delete_post = function(req, res, next) {
           })
         })
       });
+    });
+};
+
+exports.story_close_post = function(req, res, next) {
+    var id = mongoose.Types.ObjectId(req.params.id); 
+    Story.findByIdAndUpdate(id, {$set: { is_closed: true }}, {safe: true, upsert: false},
+        function(err, model) {
+            if (err) res.status(403).render();
+            res.redirect('/story/' + req.params.id + '/dashboard');
+    });
+};
+
+exports.story_open_post = function(req, res, next) {
+    var id = mongoose.Types.ObjectId(req.params.id); 
+    Story.findByIdAndUpdate(id, {$set: { is_closed: false }}, {safe: true, upsert: false},
+        function(err, model) {
+            if (err) res.status(403).render();
+            res.redirect('/story/' + req.params.id + '/dashboard');
     });
 };
 

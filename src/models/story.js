@@ -7,7 +7,8 @@ var storySchema = Schema({
     genre     : String,
     synopsis  : String,
     createdat : { type: Date, default: Date.now },
-    fragments : [{ type: Schema.ObjectId, ref: 'Fragment' }]
+    fragments : [{ type: Schema.ObjectId, ref: 'Fragment' }],
+    is_closed : { type: Boolean, default: false }
 });
 
 var autoPopulateAuthor = function(next) {

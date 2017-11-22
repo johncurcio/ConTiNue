@@ -6,20 +6,20 @@
     <%- include('partials/header') %>
 
     <div>
-        <h2><%= title %></h2>
-        <p><em>"<%= synopsis %>"</em></p>
+        <h2><%= story.title %></h2>
+        <p><em>"<%= story.synopsis %>"</em></p>
         <p>história criada por 
-          <a href="/profile/<%=author._id%>"><%= author.local.username %></a>
+          <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %></a>
         </p>
 
         <ul class="nav nav-tabs">
             <li class="active"><a class="nav-link active" href="#">Fragmentos</a></li>
-            <li><a class="nav-link" href="/story/<%= id %>/compiledStory">Compilar Fragmentos</a></li>
-            <li><a class="nav-link" href="/story/<%= id %>/dashboard">Dashboard</a></li>
+            <li><a class="nav-link" href="/story/<%= story._id %>/compiledStory">Compilar Fragmentos</a></li>
+            <li><a class="nav-link" href="/story/<%= story._id %>/dashboard">Dashboard</a></li>
         </ul>
         
           <div class="container-fluid panel panel-default">
-            <% fragments.forEach((fragment) => { %>
+            <% story.fragments.forEach((fragment) => { %>
             <%
                var monthNames = [
                     "Janeiro", "Fevereiro", "Março",
@@ -35,7 +35,7 @@
                var mody = fragment.modifieddat.getFullYear();
              %>
             <div class="row fragment">
-              <a href="/story/<%=id%>#<%=fragment._id%>"></a>
+              <a href="/story/<%=story._id%>#<%=fragment._id%>"></a>
               <div class="col-sm-10 col-xs-10">  
                   <div class="">
                     <div class="panel-body">
@@ -60,7 +60,7 @@
               <div class="col-sm-2 col-xs-2">
                 <div class="pull-right">
                   <div class="panel-body">
-                    <input id="url" name="url" type="hidden" value="/story/<%=id%>/upvote">
+                    <input id="url" name="url" type="hidden" value="/story/<%=story._id%>/upvote">
                     <a id='upvote<%=fragment._id%>'>
                       <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                     </a>
@@ -127,8 +127,13 @@
         <div class="row">
           <div class="col-sm-11 col-xs-11 add-fragment"> 
           <% if (loggedUser) { %>
+          <% if (story.is_closed) { %>
+            <div class="alert alert-danger">
+              <p>A história foi fechada para edição pelo mediador.</p>
+            </div>
+          <% }else {%>
             <div id="form-container">
-              <form name="q-editor" action="/story/<%= id %>/addFragment" method="post">
+              <form name="q-editor" action="/story/<%= story._id %>/addFragment" method="post">
                 <div class="row form-group">
                   <input name="data" type="hidden">
                   <div id="editor"></div>
@@ -137,7 +142,8 @@
               </form>
             </div>
             <script src="../../editor.js"></script>
-          <%}%>
+          <%} 
+          }%>
           </div>
         </div>
 

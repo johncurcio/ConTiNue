@@ -56,6 +56,10 @@ module.exports = function(app, passport) {
 
   app.post('/story/:id/dashboard/deleteStory', isLoggedIn, story_controller.story_delete_post );
 
+  app.post('/story/:id/dashboard/closeStory', isLoggedIn, story_controller.story_close_post );
+
+  app.post('/story/:id/dashboard/openStory', isLoggedIn, story_controller.story_open_post );
+
 }
 
 function isLoggedIn(req, res, next) {
