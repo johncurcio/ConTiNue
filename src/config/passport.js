@@ -20,7 +20,10 @@ module.exports = function(passport) {
     },
     function(req, username, password, done) {
         process.nextTick(function() {
-
+            //inseguro as fuck, mas w/e
+            if (password != req.body.repeat_password){
+                return done(null, false, req.flash('signupMessage', 'Senhas diferentes digitadas.'));
+            }
             User.findOne({ 'local.username' :  username }, function(err, user) {
                 if (err)
                     return done(err);
