@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Story    = require('../models/story')
 var Fragment = require('../models/fragment')
-var Vote = require('../models/vote')
+var Vote     = require('../models/vote')
+var User     = require('../models/user')
 var sanitizeHtml = require('sanitize-html');
 
 // Display list of all Stories
@@ -62,7 +63,9 @@ exports.story_create_post = function(req, res, next) {
         fragments: []
     });
     story.save(function (err) {
-        if (err) { return next(err); }
+        if (err) { 
+          return next(err); 
+        }
         res.render('story', { 
             story: story,
             title: story.title,  
@@ -116,15 +119,19 @@ exports.story_fragment_compile_post = function(req, res, next) {
 
 
 exports.story_and_fragments_by_author = function(req, res, next){
-    Story.find({"author":req.params.user}).exec(function(err, stories){
+    User.findOne({"_id":mongoose.Types.ObjectId(req.params.user)}).exec(function(err, usr){
       if (err) { return next(err); }
-      Fragment.find({"author":req.params.user}).exec(function(errf, fragments){
-        if (errf) { return next(errf); }
-        res.render('profile', {
-          loggedUser: req.user,
-          title: 'Perfil' ,
-          stories: stories,
-          fragments: fragments 
+      Story.find({"author":req.params.user}).exec(function(err, stories){
+        if (err) { return next(err); }
+        Fragment.find({"author":req.params.user}).exec(function(errf, fragments){
+          if (errf) { return next(errf); }
+          res.render('profile', {
+            loggedUser: req.user,
+            author: usr.local.username,
+            title: 'Perfil' ,
+            stories: stories,
+            fragments: fragments 
+          });
         });
       });
     });
@@ -226,3 +233,6 @@ exports.story_open_post = function(req, res, next) {
     });
 };
 
+function isAuthorized(userId, authorId){
+  return userId.toString() == authorId.toString();
+}

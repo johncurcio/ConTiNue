@@ -6,11 +6,13 @@
     <%- include('partials/header') %>
 
     <div>
+      <% if (loggedUser._id.toString() == story.author._id.toString()) {%>
     	<form id="edit-story" method="post">
         	<p><input class="edit-title" name="title" value="<%= story.title %>"/></p>
         	<textarea  class="edit-synopsis" name="synopsis"><%= story.synopsis %></textarea>
         	<p><input class="edit-genre"  name="genre" value="<%= story.genre %>"/></p>
         	<p>história criada por <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %>	</a></p>
+          
         	<div class="pull-right">
             <% if (story.is_closed) { %>
               <button type="submit"  formaction="/story/<%= story._id %>/dashboard/openStory" class = 'btn btn-info btn-xs'>abrir história</button>
@@ -21,6 +23,11 @@
         	    <button type="submit"  formaction="/story/<%= story._id %>/dashboard/deleteStory" class = 'btn btn-danger btn-xs'>deletar história</button>
         	</div>
     	</form>
+      <%} else {%>
+        <h2><%= story.title %></h2>
+        <p><em>"<%= story.synopsis %>"</em></p>
+        <p>história criada por <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %></a></p>
+      <%} %>
         <ul class="nav nav-tabs">
             <li><a class="nav-link" href="/story/<%= story._id %>">Fragmentos</a></li>
             <li><a class="nav-link" href="/story/<%= story._id %>/compiledStory">Compilar Fragmentos</a></li>
@@ -63,6 +70,9 @@
                   </div>
                 </div>        
             </div><!--/col-->
+            <%
+            if ((fragment.author._id.toString() == loggedUser._id.toString() && !story.is_closed)//narrador 
+                  || loggedUser._id.toString() == story.author._id.toString()) {%>
             <div class="col-sm-2 col-xs-2">
               <div class="pull-right">
                 <div class="panel-body">
@@ -73,19 +83,20 @@
                   <script type="text/javascript">
                   	$(document).ready(function(){
                   		$("#editar<%=fragment._id%>").click(function() {
-						  $(".ql-editor").empty().html('<%-fragment.data%>');
-						  $("#fragment-editor").attr('action', '/story/<%= story._id %>/dashboard/updateFragment/<%=fragment._id%>');
-						});
+            						  $(".ql-editor").empty().html('<%-fragment.data%>');
+          						  $("#fragment-editor").attr('action', '/story/<%= story._id %>/dashboard/updateFragment/<%=fragment._id%>');
+          						});
                   	});
                   </script>
                 </div>
               </div>
-            </div>
-
+            </div> <!-- edit fragments -->
+            <% } %>
           </div>
           <hr>
         <% }) %>
     	</div>
+      <% if (!story.is_closed) { %>
     	<a href="#editor"></a>
     	<div class="row">
     	  <div class="col-sm-11 col-xs-11 add-fragment"> 
@@ -101,6 +112,7 @@
     	    <script src="../../editor.js"></script>
     	  </div>
     	</div>
+      <%} %>
     </div>
 </div>
 
