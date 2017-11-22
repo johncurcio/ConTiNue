@@ -157,7 +157,7 @@ exports.fragment_update_post = function(req, res, next) {
     var data = sanitizeHtml(req.body.data,{
           allowedTags: [ 'p', 'blockquote',  'a', 'ul', 'ol', 'nl', 'li', 'b', 'i', 'strong', 
                          'em', 'strike', 'code', 'hr', 'br', 'caption', 'pre', 'u', 'sub', 'sup',
-                         'strike', 'span' ],
+                         'strike', 'span', 'h1', 'h2', 'h3', 'h4', 'h5' ],
           allowedAttributes: {
             'a': [ 'href', 'name', 'target' ]
           }

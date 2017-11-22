@@ -1,22 +1,20 @@
-var toolbarOptions = [
-  [{ 'font': [] }],
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block'],
-  ['image'],
-  ['link'],
-  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  ['clean']                                         // remove formatting button
-];
+// Add fonts to whitelist
+var Font = Quill.import('formats/font');
+// We do not add Sans Serif since it is the default
+Font.whitelist = ['inconsolata', 'roboto', 'mirza', 'arial'];
+Quill.register(Font, true);
+
+var fontSizeStyle = Quill.import('attributors/style/size');
+fontSizeStyle.whitelist = ['24px', '48px', '100px', '200px'];
+Quill.register(fontSizeStyle, true);
 
 var quillBg = new Quill('#quill-container', {
   modules: {
-    toolbar: toolbarOptions
+    toolbar: '#toolbar'
   },
   scrollingContainer: '#scrolling-container', 
   placeholder: 'Compose an epic...',
-  theme: 'bubble'
+  theme: 'snow'
 });
 
 function downloadInnerHtml(filename, mimeType) {

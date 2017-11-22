@@ -16,19 +16,75 @@
             <li><a class="nav-link" href="/story/<%= id %>/dashboard">Dashboard</a></li>
         </ul>
         
-        <div class="container-fluid panel panel-default">
-          <div class="row fragment">
-            <div class="col-sm-10 col-xs-10"> 
-              <div id="scrolling-container">
-                <div id="quill-container">
-                  <h1><%= story.title %></h1> 
-                  <p><%- full_story %></p>
-                  <p></p>
-                </div>
-              </div>
-            </div>
+        <div class= "panel">
+        <div id="toolbar" class="ql-toolbar ql-snow">
+          <span class="ql-formats">
+            <select class="ql-font">
+              <option selected>Sans Serif</option>
+              <option value="inconsolata">Inconsolata</option>
+              <option value="roboto">Roboto</option>
+              <option value="mirza">Mirza</option>
+              <option value="arial">Arial</option>
+            </select>
+            <select class="ql-size">
+                <option selected>Default</option>
+                <option value="24px">Small</option>
+                <option value="48px">Medium</option>
+                <option value="100px">Large</option>
+                <option value="200px">Huge</option>
+            </select>
+          </span>
+        <span class="ql-formats">
+          <button class="ql-header" type="button" value="1"></button>
+          <button class="ql-header" type="button" value="2"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-bold" type="button"></button>
+          <button class="ql-italic" type="button"></button>
+          <button class="ql-underline" type="button"></button>
+          <button class="ql-strike" type="button"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-direction" type="button"></button>
+          <select class="ql-align">
+              <option selected=""></option>
+              <option value="center"></option>
+              <option value="right"></option>
+              <option value="justify"></option>
+            </select>
+          <button class="ql-script" type="button" value="super"></button>
+          <button class="ql-script" type="button" value="sub"></button>
+        </span>
+        <span class="ql-formats">
+          <select class="ql-color" title="Colour"></select>
+          <select class="ql-background" title="Colour"></select>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-list" type="button" value="ordered"></button>
+          <button class="ql-list" type="button" value="bullet"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-link" type="button"></button>
+          <button class="ql-image" type="button"></button>
+          <button class="ql-video" type="button"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-formula" type="button"></button>
+          <button class="ql-code-block" type="button"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-clean" type="button"></button>
+        </span>
+
+        </div>
+          <div id="scrolling-container">
+            <div id="quill-container">
+              <h1><%= story.title %></h1> 
+              <p><%- full_story %></p>
+              <p></p>
           </div>
         </div>
+      </div>
         <a id="download" data-filename="<%= story.title %>" class="btn btn-info">download</a>
     </div>
 </div>
