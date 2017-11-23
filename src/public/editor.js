@@ -24,7 +24,7 @@ form.onsubmit = function() {
   // Populate hidden form on submit
   var data   = document.querySelector('input[name=data]');
   //data.value = JSON.stringify(quill.getContents());
-  var htmlStr = quill.root.innerHTML
+  var htmlStr = quill.root.innerHTML;
   data.value = htmlStr;
   
   return true;

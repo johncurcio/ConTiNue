@@ -60,6 +60,8 @@ module.exports = function(app, passport) {
 
   app.post('/story/:id/dashboard/openStory', isLoggedIn, story_controller.story_open_post );
 
+  app.post('/story/:id/dashboard/mergeFragments', isLoggedIn, story_controller.fragments_merge_post);
+
 }
 
 function isLoggedIn(req, res, next) {

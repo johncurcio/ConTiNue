@@ -236,3 +236,42 @@ exports.story_open_post = function(req, res, next) {
 function isAuthorized(userId, authorId){
   return userId.toString() == authorId.toString();
 }
+
+exports.fragments_merge_post = function(req, res, next) {
+  var fragmentsId = req.body.fragmentsId.toString().split(",").filter(function(n){ return n != '' });
+  var mergedFragments = req.body.fragmentsData;
+  fragmentsId.forEach(function(fragmentid, index){
+    var fid = mongoose.Types.ObjectId(fragmentid); 
+    Fragment.remove({ id: fid }, function (err) {
+      if (err) return handleError(err);
+      Story.update({_id: req.params.id}, 
+                   {$pull: {fragments: fid}}, 
+                    function (err, numberAffected) {
+                      if (!err){
+                        console.log(numberAffected);
+                      } else {
+                        console.log(err);                
+                      }
+        });
+      Vote.remove({ fragment: fid }, function (err) {
+          if (err) return console.log(err);
+      });
+    });
+  });
+
+  var fragment = new Fragment({
+      author: req.user,
+      story_id: req.params.id, 
+      data: mergedFragments
+  });
+
+  Story.findByIdAndUpdate(req.params.id, {$push: { fragments: fragment }}, {safe: true, upsert: true},
+        function(err, model) {
+          if(err) {console.log(err);}
+  });
+
+  fragment.save(function (err) {
+        if (err) { return next(err); }
+        res.redirect('/story/' + req.params.id + '/dashboard');
+  });
+};

@@ -55,7 +55,7 @@
             <div class="col-sm-10 col-xs-10">  
                 <div class="">
                   <div class="panel-body">
-                    <p><%- fragment.data %></p>
+                    <span id = "fdata<%=fragment._id%>"><%- fragment.data %></span>
                     <p>
                       <small><small>Adicionado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
                       <small>por</small> 
@@ -79,22 +79,41 @@
                   <a id='editar<%=fragment._id%>' href="#editor" class = 'label label-info'>
                   	editar
                   </a>
-                  <a id='deletar' href="/story/<%= story._id %>/dashboard/deleteFragment/<%=fragment._id%>" class = 'label label-warning'>deletar</a>
+                  <a id='deletar<%=fragment._id%>' href="/story/<%= story._id %>/dashboard/deleteFragment/<%=fragment._id%>" class = 'label label-warning'>deletar</a>
+                  <input type="checkbox" id="merge<%=fragment._id%>" name="merge<%=fragment._id%>" value="<%=fragment._id%>">
                   <script type="text/javascript">
                   	$(document).ready(function(){
                   		$("#editar<%=fragment._id%>").click(function() {
             						  $(".ql-editor").empty().html('<%-fragment.data%>');
-          						  $("#fragment-editor").attr('action', '/story/<%= story._id %>/dashboard/updateFragment/<%=fragment._id%>');
+          						    $("#fragment-editor").attr('action', '/story/<%= story._id %>/dashboard/updateFragment/<%=fragment._id%>');
           						});
+                      $("#merge<%=fragment._id%>").click(function(){
+                        var fragment = $("#merge<%=fragment._id%>").val();
+                        var data = $("#fdata<%=fragment._id%>").html();
+                        console.log(data);
+                        $("#fragmentsId").val(function() {
+                            return this.value + fragment + ',';
+                        });
+                        $("#fragmentsData").val(function() {
+                            return this.value + data + ' ';
+                        });
+                      });
                   	});
                   </script>
                 </div>
               </div>
-            </div> <!-- edit fragments -->
-            <% } %>
+            </div> <!-- edit fragments -->            
           </div>
           <hr>
+          <% } %>
         <% }) %>
+        <div class="pull-right">
+          <form id="edit-fragment" method="post">
+            <input id="fragmentsId" type="hidden" name="fragmentsId" value=""/>
+            <input id="fragmentsData" type="hidden" name="fragmentsData" value=""/>
+            <button type="submit" id='merge' formaction="/story/<%= story._id %>/dashboard/mergeFragments/" class = 'btn btn-info btn-xs'>unir fragmentos</button>
+          </form>
+        </div>
     	</div>
       <% if (!story.is_closed) { %>
     	<a href="#editor"></a>
