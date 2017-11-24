@@ -1,18 +1,55 @@
 <!-- views/partials/header.ejs -->
 <div class="header clearfix">
-    <nav>
-        <ul class="nav nav-pills pull-right">
-        	<% if (loggedUser) { %>
-        		<li role="presentation"><a class='user' href="/profile/<%=loggedUser._id%>"><%= loggedUser.local.username %></a></li>
-                <li role="presentation"><a href="/addStory">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <strong> história</strong></a>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <strong><a class="navbar-brand" href="/">ConTiNue</a></strong>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="navbar-collapse collapse" id="navbar" style="height: 1px;">
+          <!--<ul class="nav navbar-nav">
+            <li>
+              <form class="navbar-form" role="search">
+                <div class="form-search search-only">
+                  <i class="search-icon glyphicon glyphicon-search"></i>
+                  <input type="text" class="form-control search-query">
+                </div>
+              </form>
+            </li>
+            
+          </ul>-->
+
+          <ul class="nav navbar-nav navbar-right">
+              <% if (loggedUser) { %>
+                  <li role="presentation"><a href="/addStory">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> história</a>
+                    </li>
+                <% } else { %>
+                  <li role="presentation"><a href="/login">entrar</a></li>
+                  <li role="presentation"><a href="/signup">inscrever-se</a></li>
+                <% } %>
+              <li>
+                <% if (loggedUser) { %>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= loggedUser.local.username %> <b class="caret"></b></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">Opções</li>
+                    <li><a href="/profile/<%=loggedUser._id%>">perfil</a></li>
+                    <li><a href="/logout">sair</a></li>
+                  </ul>
                 </li>
-            	<li role="presentation"><a href="/logout">Sair</a></li>
-            <% } else { %>
-            	<li role="presentation"><a href="/login">Entrar</a></li>
-            	<li role="presentation"><a href="/signup">Inscrever-se</a></li>
-            <% } %>
-        </ul>
-        <h3 class="text-muted"><a href="/">ConTiNue</a></h3>
+              </li>
+              <% } %>
+          </ul>
+          
+        </div><!-- /.navbar-collapse -->
+      </div>
     </nav>
 </div>

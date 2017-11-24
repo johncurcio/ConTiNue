@@ -23,4 +23,6 @@ $(document).ready(function() {
 	   		return jQuery.trim(text).substring(0, n) + "...";
 	});
 
+    $('[data-toggle="tooltip"]').tooltip(); 
+
 });

@@ -11,10 +11,10 @@
      var m = monthNames[story.createdat.getMonth()];
      var y = story.createdat.getFullYear();
    %>
-  <div class="col-md-4 col-sm-6">
-      <div class="panel panel-default">
+  <div id = "stories" class="col-md-4 col-sm-6">
+      <span class="panel panel-default">
         <div class="panel-heading">
-          <a href="/story/<%= story.id %>" class="pull-right">Ler História (<%= story.fragments.length%>)</a> 
+          <a class="btn btn-success btn-xs pull-right" href="/story/<%= story.id %>">Ler História (<%= story.fragments.length%>)</a> 
           <h4 class="title"><%= story.title %></h4>
         </div>
         <div class="panel-body">
@@ -24,7 +24,7 @@
           <hr>
           <small><small>Criado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
         </div>
-      </div> 
+      </span> 
   </div>
 <% }) %>
 </div>
