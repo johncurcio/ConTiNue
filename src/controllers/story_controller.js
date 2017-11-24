@@ -238,40 +238,35 @@ function isAuthorized(userId, authorId){
 }
 
 exports.fragments_merge_post = function(req, res, next) {
-  var fragmentsId = req.body.fragmentsId.toString().split(",").filter(function(n){ return n != '' });
-  var mergedFragments = req.body.fragmentsData;
-  fragmentsId.forEach(function(fragmentid, index){
-    var fid = mongoose.Types.ObjectId(fragmentid); 
-    Fragment.remove({ id: fid }, function (err) {
-      if (err) return handleError(err);
-      Story.update({_id: req.params.id}, 
-                   {$pull: {fragments: fid}}, 
-                    function (err, numberAffected) {
-                      if (!err){
-                        console.log(numberAffected);
-                      } else {
-                        console.log(err);                
-                      }
-        });
-      Vote.remove({ fragment: fid }, function (err) {
-          if (err) return console.log(err);
+  var fragmentsId = req.body.fragmentsId.toString().split(",").filter(function(n){ 
+    if (n != '') 
+      return mongoose.Types.ObjectId(n); 
+  });
+
+  console.log(fragmentsId);
+
+  Fragment.remove({_id: {$in: fragmentsId}}, function(err){
+    if (err) {return next(err);}
+    Vote.remove({fragment: {$in: fragmentsId}}, function(err){
+      if (err) {return next(err);}
+      Story.update({_id: req.params.id}, {$pull: {fragments: {$in: fragmentsId}}} , 
+        function(err){
+          if (err) {console.log(err); return next(err);}
+          var fragment = new Fragment({
+              author: req.user,
+              story_id: req.params.id, 
+              data: req.body.fragmentsData
+          });
+          fragment.save(function (err) {
+            if (err) { console.log(err); return next(err); }
+            Story.findByIdAndUpdate(req.params.id, {$push: { fragments: fragment }}, {safe: true, upsert: true},
+              function(err, model) {
+                if (err) { console.log(err); return next(err); }
+                res.redirect('/story/' + req.params.id + '/dashboard');
+              });   
+          });
       });
     });
   });
 
-  var fragment = new Fragment({
-      author: req.user,
-      story_id: req.params.id, 
-      data: mergedFragments
-  });
-
-  Story.findByIdAndUpdate(req.params.id, {$push: { fragments: fragment }}, {safe: true, upsert: true},
-        function(err, model) {
-          if(err) {console.log(err);}
-  });
-
-  fragment.save(function (err) {
-        if (err) { return next(err); }
-        res.redirect('/story/' + req.params.id + '/dashboard');
-  });
 };
