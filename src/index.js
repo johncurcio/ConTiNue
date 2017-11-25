@@ -13,9 +13,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
+var compression = require('compression');
+var helmet      = require('helmet');
+
 var expressValidator = require('express-validator');
 
 app.set('view engine', 'ejs');
+
+app.use(compression()); //Compress all routes
+app.use(helmet());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -38,6 +44,14 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 require('./routes/routes.js')(app, passport);
+
+//The 404 Route (ALWAYS Keep this as the last route)
+app.get('*', function(req, res){
+  res.render('404', { 
+    title: 'Opa! Nada foi encontrado',  
+    loggedUser: req.user 
+  });
+});
 
 app.listen(port);
 
