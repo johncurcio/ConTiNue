@@ -1,8 +1,11 @@
 {
   "name": "continue",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Group Storytelling blog",
   "main": "index.js",
+  "engines": {
+    "node": "8.8.1"
+  },
   "scripts": {
     "test": "nodemon index.js"
   },
