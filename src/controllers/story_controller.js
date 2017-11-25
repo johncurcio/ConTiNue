@@ -125,12 +125,16 @@ exports.story_and_fragments_by_author = function(req, res, next){
         if (err) { return next(err); }
         Fragment.find({"author":req.params.user}).exec(function(errf, fragments){
           if (errf) { return next(errf); }
-          res.render('profile', {
-            loggedUser: req.user,
-            author: usr.local.username,
-            title: 'Perfil' ,
-            stories: stories,
-            fragments: fragments 
+          Vote.find({"user":req.params.user}).exec(function(err, votes){
+            if (err) { return next(err); }
+            res.render('profile', {
+              loggedUser: req.user,
+              author: usr.local.username,
+              title: 'Perfil' ,
+              stories: stories,
+              fragments: fragments,
+              votes: votes 
+            });
           });
         });
       });

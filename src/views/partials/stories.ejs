@@ -20,7 +20,7 @@
         <div class="panel-body">
           <p class = "synopsis"><small>Sinopse: </small><%= story.synopsis %></p>
           <p class = "genre"><small>Genero: </small><%= story.genre %></p>
-          <p><small>Criado por: </small><a href="#"><%= story.author.local.username %></a></p>
+          <p><small>Criado por: </small><a href="/profile/<%= story.author._id%>"><%= story.author.local.username %></a></p>
           <hr>
           <small><small>Criado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
         </div>
