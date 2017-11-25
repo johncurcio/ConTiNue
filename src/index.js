@@ -13,6 +13,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
+var expressValidator = require('express-validator');
+
 app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -27,6 +29,7 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator()); 
 
 // required for passport
 app.use(session({ secret: 'groupstorytellingisamazing' })); // session secret

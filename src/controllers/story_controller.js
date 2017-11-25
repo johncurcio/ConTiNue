@@ -48,34 +48,57 @@ exports.story_fragments_list = function(req, res, next) {
 
 exports.story_create_get = function(req, res, next) {
     res.render('newstory', { 
-        title: 'Crie sua história',  
+        title: 'Crie sua história',
+        errors: '',
         loggedUser: req.user
     });
 };
 
 
 exports.story_create_post = function(req, res, next) {
-    var story = new Story({
-        author: req.user,
-        title: req.body.title,
-        genre: req.body.genre,
-        synopsis: req.body.synopsis,
-        fragments: []
-    });
-    story.save(function (err) {
-        if (err) { 
-          return next(err); 
-        }
-        res.render('story', { 
-            story: story,
-            title: story.title,  
-            loggedUser: req.user
-        });
-    });
+  
+  req.checkBody('title', 'Título obrigatório.').notEmpty();
+  req.sanitize('title').escape();
+  req.sanitize('title').trim();
+  req.sanitize('genre').trim();
+  req.sanitize('synopsis').trim();
+
+  var errors = req.validationErrors();
+  
+  var story = new Story({
+      author: req.user,
+      title: req.body.title,
+      genre: req.body.genre,
+      synopsis: req.body.synopsis,
+      fragments: []
+  });
+
+  if (errors) {
+      res.render('newstory', { 
+        title: 'Create Genre', 
+        loggedUser: req.user, 
+        errors: errors
+      });
+      return;
+  }
+  story.save(function (err) {
+      if (err) { 
+        return next(err); 
+      }
+      res.render('story', { 
+          story: story,
+          title: story.title,  
+          loggedUser: req.user
+      });
+  });
 };
 
 exports.story_fragment_create_post = function(req, res, next) {
     var id = mongoose.Types.ObjectId(req.params.id); 
+
+    var regex = /(?:^<p[^>]*>)|(?:<\/p>$)/g;
+    req.body.data = req.body.data.replace(regex, "");
+
     var fragment = new Fragment({
         author: req.user,
         story_id: id, 
@@ -88,6 +111,15 @@ exports.story_fragment_create_post = function(req, res, next) {
           }
         })
     });
+    
+    req.checkBody('data', 'Fragmento não pode ser vazio.').notEmpty();
+
+    var errors = req.validationErrors();
+
+    if (errors || req.body.data == '<br>') {
+        res.redirect('/story/' + req.params.id);
+        return;
+    }
 
     Story.findByIdAndUpdate(id, {$push: { fragments: fragment }}, {safe: true, upsert: true},
         function(err, model) {
@@ -246,6 +278,10 @@ exports.fragments_merge_post = function(req, res, next) {
     if (n != '') 
       return mongoose.Types.ObjectId(n); 
   });
+
+  if (fragmentsId.length == 0){
+    res.redirect('/story/' + req.params.id + '/dashboard');
+  }
 
   console.log(fragmentsId);
 

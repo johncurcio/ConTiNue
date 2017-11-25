@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <% if (loggedUser._id.toString() == story.author._id.toString()) {%>
+  <form id="edit-story" method="post">
+      <p><input class="edit-title" name="title" value="<%= story.title %>" placeholder="Título da história..."/></p>
+      <textarea  class="edit-synopsis" name="synopsis" placeholder="Explique sua história em poucas palavras..."><%= story.synopsis %></textarea>
+      <p><input class="edit-genre"  name="genre" value="<%= story.genre %>"  placeholder="Gênero da história..."/></p>
+      <p>história criada por <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %>  </a></p>
+      
+      <div class="btn-group pull-right">
+        <% if (story.is_closed) { %>
+          <button type="submit"  formaction="/story/<%= story._id %>/dashboard/openStory" class = 'btn btn-info btn-xs' data-toggle="tooltip" title="Abrir história">
+            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+          </button>
+        <% } else { %>
+          <button type="submit"  formaction="/story/<%= story._id %>/dashboard/closeStory" class = 'btn btn-info' data-toggle="tooltip" title="Fechar história">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+          </button>
+        <% } %>
+          <button type="submit" class = 'btn btn-info' formaction="/story/<%= story._id %>/dashboard/updateStory" data-toggle="tooltip" title="Salvar mudanças">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          </button>
+          <button type="submit"  formaction="/story/<%= story._id %>/dashboard/deleteStory" class = 'btn btn-info' data-toggle="tooltip" title="Deletar história">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+      </div>
+  </form>
+  <%} else {%>
+    <h2><%= story.title %></h2>
+    <p><em>"<%= story.synopsis %>"</em></p>
+    <p>história criada por <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %></a></p>
+  <%} %>
+</div>

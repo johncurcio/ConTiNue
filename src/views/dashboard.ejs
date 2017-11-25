@@ -2,129 +2,25 @@
 
 <%- include('partials/head') %>
 
+<%- include('partials/header') %>
+
 <div class="container">
-    <%- include('partials/header') %>
 
-    <div class="container-fluid">
-      <% if (loggedUser._id.toString() == story.author._id.toString()) {%>
-    	<form id="edit-story" method="post">
-        	<p><input class="edit-title" name="title" value="<%= story.title %>" placeholder="Título da história..."/></p>
-        	<textarea  class="edit-synopsis" name="synopsis" placeholder="Explique sua história em poucas palavras..."><%= story.synopsis %></textarea>
-        	<p><input class="edit-genre"  name="genre" value="<%= story.genre %>"  placeholder="Gênero da história..."/></p>
-        	<p>história criada por <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %>	</a></p>
-          
-        	<div class="btn-group pull-right">
-            <% if (story.is_closed) { %>
-              <button type="submit"  formaction="/story/<%= story._id %>/dashboard/openStory" class = 'btn btn-info btn-xs' data-toggle="tooltip" title="Abrir história">
-                <i class="fa fa-unlock-alt" aria-hidden="true"></i>
-              </button>
-            <% } else { %>
-        		  <button type="submit"  formaction="/story/<%= story._id %>/dashboard/closeStory" class = 'btn btn-info' data-toggle="tooltip" title="Fechar história">
-                <i class="fa fa-lock" aria-hidden="true"></i>
-              </button>
-            <% } %>
-        	    <button type="submit" class = 'btn btn-info' formaction="/story/<%= story._id %>/dashboard/updateStory" data-toggle="tooltip" title="Salvar mudanças">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i>
-              </button>
-        	    <button type="submit"  formaction="/story/<%= story._id %>/dashboard/deleteStory" class = 'btn btn-info' data-toggle="tooltip" title="Deletar história">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-              </button>
-        	</div>
-    	</form>
-      <%} else {%>
-        <h2><%= story.title %></h2>
-        <p><em>"<%= story.synopsis %>"</em></p>
-        <p>história criada por <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %></a></p>
-      <%} %>
-    </div>
+  <%- include('partials/editstory') %>
 
-      <div class = "container-fluid">
+    <div class = "container-fluid">
         <ul class="nav nav-tabs">
             <li><a class="nav-link" href="/story/<%= story._id %>">Fragmentos</a></li>
             <li><a class="nav-link" href="/story/<%= story._id %>/compiledStory">Compilar Fragmentos</a></li>
             <li class="active"><a class="nav-link active" href="/story/<%= story._id %>/dashboard">Dashboard</a></li>
         </ul>
 
-        <div class="container-fluid panel panel-default">
-          <% story.fragments.forEach((fragment) => { %>
-          <%
-             var monthNames = [
-                  "Janeiro", "Fevereiro", "Março",
-                  "Abril", "Maio", "Junho", "Julho",
-                  "Agosto", "Setembro", "Outubro",
-                  "Novembro", "Dezembro"
-               ];
-             var d = fragment.createdat.getDate();
-             var m = monthNames[fragment.createdat.getMonth()];
-             var y = fragment.createdat.getFullYear();
-             var modd = fragment.modifieddat.getDate();
-             var modm = monthNames[fragment.modifieddat.getMonth()];
-             var mody = fragment.modifieddat.getFullYear();
-           %>
-          <div class="row fragment">
-            <a href="/story/<%=story._id%>#<%=fragment._id%>"></a>
-            <div class="col-sm-10 col-xs-10">  
-                  <div class="panel-body">
-                    <span id = "fdata<%=fragment._id%>"><%- fragment.data %></span>
-                    <p>
-                      <small><small>Adicionado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
-                      <small>por</small> 
-                      <object>
-                      <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>
-                    </object>
-                    </p>
-                    <p>
-                      <small><small>Modificado da última vez em: </small> <%= modd+ ' de '  +modm+ ' de ' +mody %></small>
-                    </object>
-                    </p>
-                  </div>
-            </div><!--/col-->
-            <%
-            if ((fragment.author._id.toString() == loggedUser._id.toString() && !story.is_closed)//narrador 
-                  || loggedUser._id.toString() == story.author._id.toString()) {%>
-            <div class="col-sm-2 col-xs-2">
-              <div class="pull-right">
-                <div class="panel-body">
-                  
-                  <div class ="btn-group-vertical">
-                    <a class="btn btn-default" id='editar<%=fragment._id%>' href="#editor" class = 'label label-info' data-toggle="tooltip" title="Editar fragmento" data-placement="right">
-                      <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </a>
-                    <a id='deletar<%=fragment._id%>' href="/story/<%= story._id %>/dashboard/deleteFragment/<%=fragment._id%>" class = 'btn btn-default' data-toggle="tooltip" title="Deletar fragmento" data-placement="right">
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                    <label class="check btn btn-default" data-toggle="tooltip" title="Selecionar fragmento" data-placement="right">
-                      <input type="checkbox" id="merge<%=fragment._id%>" name="merge<%=fragment._id%>" value="<%=fragment._id%>">
-                    </label>
-                  </div>
+      <div class="container-fluid panel panel-default">
+          <%- include('partials/editfragment') %>
+    	</div>
 
-                  <script type="text/javascript">
-                  	$(document).ready(function(){
-                  		$("#editar<%=fragment._id%>").click(function() {
-            						  $(".ql-editor").empty().html('<%-fragment.data%>');
-          						    $("#fragment-editor").attr('action', '/story/<%= story._id %>/dashboard/updateFragment/<%=fragment._id%>');
-          						});
-                      $("#merge<%=fragment._id%>").click(function(){
-                        var fragment = $("#merge<%=fragment._id%>").val();
-                        var data = $("#fdata<%=fragment._id%>").html();
-                        console.log(data);
-                        $("#fragmentsId").val(function() {
-                            return this.value + fragment + ',';
-                        });
-                        $("#fragmentsData").val(function() {
-                            return this.value + data + ' ';
-                        });
-                      });
-                  	});
-                  </script>
-                </div>
-              </div>
-            </div> <!-- edit fragments -->   
-
-          </div>
-          <hr>
-          <% } %>
-        <% }) %>
+      <% if (loggedUser._id.toString() == story.author._id.toString()) {%>
+      <div class = "container-fluid well">
         <div class="btn-group pull-right">
           <form id="edit-fragment" method="post">
             <input id="fragmentsId" type="hidden" name="fragmentsId" value=""/>
@@ -134,7 +30,8 @@
             </button>
           </form>
         </div>
-    	</div>
+      </div>
+      <% } %>
 
       <% if (!story.is_closed) { %>
         <a href="#editor"></a>

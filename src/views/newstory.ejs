@@ -4,7 +4,9 @@
     <%- include('partials/header') %>
     <div class="col-sm-6 col-sm-offset-3">
         <h1><span class="fa fa-sign-in"></span> Nova História</h1>
-
+        <% if (errors.length > 0) { %>
+            <div class="alert alert-danger"><%= errors[0].msg %></div>
+        <% } %>
         <form action="/addStory" method="post">
             <div class="form-group">
                 <label>Título</label>
