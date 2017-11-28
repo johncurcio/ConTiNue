@@ -3,5 +3,13 @@
   "description": "Group Storytelling app",
   "repository": "https://github.com/johncurcio/ConTiNue",
   "logo": "https://node-js-sample.herokuapp.com/node.png",
-  "keywords": ["node", "express", "static"]
+  "keywords": ["node", "express", "static"],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs/releases/tag/v114"
+    }
+  ]
 }
