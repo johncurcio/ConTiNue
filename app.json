@@ -1,0 +1,7 @@
+{
+  "name": "ConTiNue",
+  "description": "Group Storytelling app",
+  "repository": "https://github.com/johncurcio/ConTiNue",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["node", "express", "static"]
+}
