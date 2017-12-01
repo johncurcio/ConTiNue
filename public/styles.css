@@ -69,6 +69,7 @@ body {
     margin-top: 10px;
     margin-left: 2px;
     margin-right: 5px;
+    border-bottom: 2px solid #F8F8F8;
 }
 
 .container.panel {
@@ -174,5 +175,3 @@ body {
 .ql-font-arial {
   font-family: "Arial";
 }
-
-

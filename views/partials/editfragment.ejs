@@ -1,77 +1,92 @@
-<% story.fragments.forEach((fragment) => { 
-     var monthNames = [
-          "Janeiro", "Fevereiro", "Março",
-          "Abril", "Maio", "Junho", "Julho",
-          "Agosto", "Setembro", "Outubro",
-          "Novembro", "Dezembro"
-       ];
-     var d = fragment.createdat.getDate();
-     var m = monthNames[fragment.createdat.getMonth()];
-     var y = fragment.createdat.getFullYear();
-     var modd = fragment.modifieddat.getDate();
-     var modm = monthNames[fragment.modifieddat.getMonth()];
-     var mody = fragment.modifieddat.getFullYear();
-   %>
-  <div class="row fragment">
-    <a href="/story/<%=story._id%>#<%=fragment._id%>"></a>
-    <div class="col-sm-10 col-xs-10">  
-      <div class="panel-body">
-        <span id = "fdata<%=fragment._id%>"><%- fragment.data %></span>
-        <p>
-          <small><small>Adicionado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
-          <small>por</small> 
-          <object>
-          <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>
-        </object>
-        </p>
-        <p>
-          <small><small>Modificado da última vez em: </small> <%= modd+ ' de '  +modm+ ' de ' +mody %></small>
-        </object>
-        </p>
-      </div>
-    </div><!--/col-->
-    <%
-    if ((fragment.author._id.toString() == loggedUser._id.toString() && !story.is_closed)//narrador 
-          || loggedUser._id.toString() == story.author._id.toString()) {%>
-    <div class="col-sm-2 col-xs-2">
-      <div class="pull-right">
+<div id="fragmentos" class = "panel panel-default">
+  <div class = "w-100 p-3">
+    <input class="search form-control" placeholder="Digite um pedaço do fragmento..." />
+  </div>
+<div class="list container-fluid">
+  <% story.fragments.forEach((fragment) => { 
+       var monthNames = [
+            "Janeiro", "Fevereiro", "Março",
+            "Abril", "Maio", "Junho", "Julho",
+            "Agosto", "Setembro", "Outubro",
+            "Novembro", "Dezembro"
+         ];
+       var d = fragment.createdat.getDate();
+       var m = monthNames[fragment.createdat.getMonth()];
+       var y = fragment.createdat.getFullYear();
+       var modd = fragment.modifieddat.getDate();
+       var modm = monthNames[fragment.modifieddat.getMonth()];
+       var mody = fragment.modifieddat.getFullYear();
+     %>
+    <div class="row fragment">
+      <a href="/story/<%=story._id%>#<%=fragment._id%>"></a>
+      <div class="col-sm-10 col-xs-10">  
         <div class="panel-body">
-          
-          <div class ="btn-group-vertical">
-            <a class="btn btn-default" id='editar<%=fragment._id%>' href="#editor" class = 'label label-info' data-toggle="tooltip" title="Editar fragmento" data-placement="right">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>
-            <a id='deletar<%=fragment._id%>' href="/story/<%= story._id %>/dashboard/deleteFragment/<%=fragment._id%>" class = 'btn btn-default' data-toggle="tooltip" title="Deletar fragmento" data-placement="right">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </a>
-            <label class="check btn btn-default" data-toggle="tooltip" title="Selecionar fragmento" data-placement="right">
-              <input type="checkbox" id="merge<%=fragment._id%>" name="merge<%=fragment._id%>" value="<%=fragment._id%>">
-            </label>
-          </div>
-
-          <script type="text/javascript">
-            $(document).ready(function(){
-              $("#editar<%=fragment._id%>").click(function() {
-                  $(".ql-editor").empty().html('<%-fragment.data%>');
-                  $("#fragment-editor").attr('action', '/story/<%= story._id %>/dashboard/updateFragment/<%=fragment._id%>');
-              });
-              $("#merge<%=fragment._id%>").click(function(){
-                var fragment = $("#merge<%=fragment._id%>").val();
-                var data = $("#fdata<%=fragment._id%>").html();
-                console.log(data);
-                $("#fragmentsId").val(function() {
-                    return this.value + fragment + ',';
-                });
-                $("#fragmentsData").val(function() {
-                    return this.value + data + ' ';
-                });
-              });
-            });
-          </script>
+          <span id = "fdata<%=fragment._id%>" class ="name"><%- fragment.data %></span>
+          <p>
+            <small><small>Adicionado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
+            <small>por</small> 
+            <object>
+            <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>
+          </object>
+          </p>
+          <p>
+            <small><small>Modificado da última vez em: </small> <%= modd+ ' de '  +modm+ ' de ' +mody %></small>
+          </object>
+          </p>
         </div>
-      </div>
-    </div> <!-- edit fragments -->   
-  <% } %>
+      </div><!--/col-->
+      <%
+      if ((fragment.author._id.toString() == loggedUser._id.toString() && !story.is_closed)//narrador 
+            || loggedUser._id.toString() == story.author._id.toString()) {%>
+      <div class="col-sm-2 col-xs-2">
+        <div class="pull-right">
+          <div class="panel-body">
+            
+            <div class ="btn-group-vertical">
+              <a class="btn btn-default" id='editar<%=fragment._id%>' href="#editor" class = 'label label-info' data-toggle="tooltip" title="Editar fragmento" data-placement="right">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              <a id='deletar<%=fragment._id%>' href="/story/<%= story._id %>/dashboard/deleteFragment/<%=fragment._id%>" class = 'btn btn-default' data-toggle="tooltip" title="Deletar fragmento" data-placement="right">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </a>
+              <label class="check btn btn-default" data-toggle="tooltip" title="Selecionar fragmento" data-placement="right">
+                <input type="checkbox" id="merge<%=fragment._id%>" name="merge<%=fragment._id%>" value="<%=fragment._id%>">
+              </label>
+            </div>
+
+            <script type="text/javascript">
+              $(document).ready(function(){
+                $("#editar<%=fragment._id%>").click(function() {
+                    $(".ql-editor").empty().html('<%-fragment.data%>');
+                    $("#fragment-editor").attr('action', '/story/<%= story._id %>/dashboard/updateFragment/<%=fragment._id%>');
+                });
+                $("#merge<%=fragment._id%>").click(function(){
+                  var fragment = $("#merge<%=fragment._id%>").val();
+                  var data = $("#fdata<%=fragment._id%>").html();
+                  console.log(data);
+                  $("#fragmentsId").val(function() {
+                      return this.value + fragment + ',';
+                  });
+                  $("#fragmentsData").val(function() {
+                      return this.value + data + ' ';
+                  });
+                });
+              });
+            </script>
+          </div>
+        </div>
+      </div> <!-- edit fragments -->   
+    <% } %>
+  </div>
+  <% }) %>
+  </div>
 </div>
-<hr>
-<% }) %>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<script type="text/javascript">
+  var options = {
+    valueNames: [ 'name' ]
+  };
+
+  var userList = new List('fragmentos', options);
+</script>

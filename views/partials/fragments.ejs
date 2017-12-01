@@ -1,29 +1,42 @@
-<div class="row">
-  <% fragments.forEach((fragment) => { %>
-  <%
-     var monthNames = [
-          "Janeiro", "Fevereiro", "Março",
-          "Abril", "Maio", "Junho", "Julho",
-          "Agosto", "Setembro", "Outubro",
-          "Novembro", "Dezembro"
-       ];
-     var d = fragment.createdat.getDate();
-     var m = monthNames[fragment.createdat.getMonth()];
-     var y = fragment.createdat.getFullYear();
-   %>
-    <div class="col-md-12">
-        <div class="list-group">
-            <a href="/story/<%=fragment.story_id%>#<%=fragment._id%>" class="list-group-item no-outline">
-              <h4 class="list-group-item-heading"><%- fragment.data %></h4>
-              <p>
-                <small><small>Adicionado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
-                <small>por</small> 
-                <object>
-                <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>
-              </object>
-              </p>
-            </a>
-        </div>
-    </div>
-    <% }) %>
+<div id="fragmentos">
+  <div class = "well w-100 p-3">
+    <input class="search form-control" placeholder="Digite um pedaço do fragmento..." />
+  </div>
+  <div class="list row">
+    <% fragments.forEach((fragment) => { %>
+    <%
+       var monthNames = [
+            "Janeiro", "Fevereiro", "Março",
+            "Abril", "Maio", "Junho", "Julho",
+            "Agosto", "Setembro", "Outubro",
+            "Novembro", "Dezembro"
+         ];
+       var d = fragment.createdat.getDate();
+       var m = monthNames[fragment.createdat.getMonth()];
+       var y = fragment.createdat.getFullYear();
+     %>
+      <div class="col-md-12">
+          <div class="list-group">
+              <a href="/story/<%=fragment.story_id%>#<%=fragment._id%>" class="list-group-item no-outline">
+                <h4 class="name list-group-item-heading"><%- fragment.data %></h4>
+                <p>
+                  <small><small>Adicionado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
+                  <small>por</small> 
+                  <object>
+                  <a href="/profile/<%=fragment.author._id%>"><%= fragment.author.local.username %></a>
+                </object>
+                </p>
+              </a>
+          </div>
+      </div>
+      <% }) %>
+  </div>
 </div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<script type="text/javascript">
+  var options = {
+    valueNames: [ 'name', 'born' ]
+  };
+
+  var userList = new List('fragmentos', options);
+</script>

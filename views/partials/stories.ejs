@@ -1,30 +1,45 @@
-<div class = "row">
-<% stories.forEach((story) => { %>
-  <%
-     var monthNames = [
-          "Janeiro", "Fevereiro", "Março",
-          "Abril", "Maio", "Junho", "Julho",
-          "Agosto", "Setembro", "Outubro",
-          "Novembro", "Dezembro"
-       ];
-     var d = story.createdat.getDate();
-     var m = monthNames[story.createdat.getMonth()];
-     var y = story.createdat.getFullYear();
-   %>
-  <div id = "stories" class="col-md-4 col-sm-6">
-      <span class="panel panel-default">
-        <div class="panel-heading">
-          <a class="btn btn-success btn-xs pull-right" href="/story/<%= story.id %>">Ler História (<%= story.fragments.length%>)</a> 
-          <h4 class="title"><%= story.title %></h4>
-        </div>
-        <div class="panel-body">
-          <p class = "synopsis"><small>Sinopse: </small><%= story.synopsis %></p>
-          <p class = "genre"><small>Genero: </small><%= story.genre %></p>
-          <p><small>Criado por: </small><a href="/profile/<%= story.author._id%>"><%= story.author.local.username %></a></p>
-          <hr>
-          <small><small>Criado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
-        </div>
-      </span> 
+<div id="stories">
+  <div class = "well w-100 p-3">
+    <input class="search form-control" placeholder="Busque uma história" />
   </div>
-<% }) %>
+
+  <div class = "list row">
+  <% stories.forEach((story) => { %>
+    <%
+       var monthNames = [
+            "Janeiro", "Fevereiro", "Março",
+            "Abril", "Maio", "Junho", "Julho",
+            "Agosto", "Setembro", "Outubro",
+            "Novembro", "Dezembro"
+         ];
+       var d = story.createdat.getDate();
+       var m = monthNames[story.createdat.getMonth()];
+       var y = story.createdat.getFullYear();
+     %>
+    <div id = "stories" class="col-md-4 col-sm-6">
+        <span class="panel panel-default">
+          <div class="panel-heading">
+            <a class="btn btn-success btn-xs pull-right" href="/story/<%= story.id %>">Ler História (<%= story.fragments.length%>)</a> 
+            <h4 class="name title"><%= story.title %></h4>
+          </div>
+          <div class="panel-body">
+            <p class = "synopsis"><small>Sinopse: </small><%= story.synopsis %></p>
+            <p class = "genre"><small>Genero: </small><%= story.genre %></p>
+            <p><small>Criado por: </small><a href="/profile/<%= story.author._id%>"><%= story.author.local.username %></a></p>
+            <hr>
+            <small><small>Criado em: </small> <%= d+ ' de '  +m+ ' de ' +y %></small>
+          </div>
+        </span> 
+    </div>
+  <% }) %>
+  </div>
 </div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<script type="text/javascript">
+  var options = {
+    valueNames: [ 'name', 'synopsis', 'genre' ]
+  };
+
+  var userList = new List('stories', options);
+</script>

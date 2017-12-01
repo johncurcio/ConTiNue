@@ -15,9 +15,7 @@
             <li class="active"><a class="nav-link active" href="/story/<%= story._id %>/dashboard">Dashboard</a></li>
         </ul>
 
-      <div class="container-fluid panel panel-default">
-          <%- include('partials/editfragment') %>
-    	</div>
+      <%- include('partials/editfragment') %>
 
       <% if (loggedUser._id.toString() == story.author._id.toString()) {%>
       <div class = "container-fluid well">
