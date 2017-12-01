@@ -1,9 +1,4 @@
-<div id="stories">
-  <div class = "well w-100 p-3">
-    <input class="search form-control" placeholder="Busque uma história" />
-  </div>
-
-  <div class = "list row">
+  <div class = "row">
   <% stories.forEach((story) => { %>
     <%
        var monthNames = [
@@ -33,13 +28,3 @@
     </div>
   <% }) %>
   </div>
-</div>
-
-<script src="../../list.min.js"></script>
-<script type="text/javascript">
-  var options = {
-    valueNames: [ 'name', 'synopsis', 'genre' ]
-  };
-
-  var userList = new List('stories', options);
-</script>

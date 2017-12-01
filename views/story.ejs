@@ -2,30 +2,29 @@
 
 <%- include('partials/head') %>
 
-<div class="container">
+<div class="container-fluid">
     <%- include('partials/header') %>
 
-    <div>
-        <h2><%= story.title %></h2>
-        <p><em>"<%= story.synopsis %>"</em></p>
-        <p>história criada por 
-          <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %></a>
-        </p>
+    <h2><%= story.title %></h2>
+    <p><em>"<%= story.synopsis %>"</em></p>
+    <p>história criada por 
+      <a href="/profile/<%=story.author._id%>"><%= story.author.local.username %></a>
+    </p>
 
-        <ul class="nav nav-tabs">
-            <li class="active"><a class="nav-link active" href="#">Fragmentos</a></li>
-            <li><a class="nav-link" href="/story/<%= story._id %>/compiledStory">Compilar Fragmentos</a></li>
-            <li><a class="nav-link" href="/story/<%= story._id %>/dashboard">Dashboard</a></li>
-        </ul>
+    <ul class="nav nav-tabs">
+        <li class="active"><a class="nav-link active" href="#">Fragmentos</a></li>
+        <li><a class="nav-link" href="/story/<%= story._id %>/compiledStory">Compilar Fragmentos</a></li>
+        <li><a class="nav-link" href="/story/<%= story._id %>/dashboard">Dashboard</a></li>
+    </ul>
 
-      <%- include('partials/list') %>
+    <%- include('partials/list') %>
 
-    </div>
 
         <div class="row">
           <div class="col-sm-11 col-xs-11 add-fragment"> 
-          <% if (loggedUser) { %>
-          <% if (story.is_closed) { %>
+          <% if (loggedUser) { 
+               if (story.is_closed) { 
+          %>
             <div class="alert alert-danger">
               <p>A história foi fechada para edição pelo mediador.</p>
             </div>

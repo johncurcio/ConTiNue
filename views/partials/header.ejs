@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -35,8 +35,8 @@
                   <li role="presentation"><a href="/login">entrar</a></li>
                   <li role="presentation"><a href="/signup">inscrever-se</a></li>
                 <% } %>
-              <li>
                 <% if (loggedUser) { %>
+              <li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= loggedUser.local.username %> <b class="caret"></b></a>
                   <ul class="dropdown-menu" role="menu">
