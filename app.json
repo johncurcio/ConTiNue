@@ -4,6 +4,7 @@
   "repository": "https://github.com/johncurcio/ConTiNue",
   "logo": "https://node-js-sample.herokuapp.com/node.png",
   "keywords": ["node", "express", "static"],
+  "website": "https://continue.herokuapp.com/",
   "env": {
     "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-nodejs#v114"
   },
