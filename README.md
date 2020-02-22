@@ -6,7 +6,6 @@
 
 ConTiNue é um projeto de group storytelling criado para a disciplina de Gestão de Projetos em TI da UFRJ. 
 
-
 ## Rodando o projeto localmente
 
 Você pode rodar o aplicativo com os comandos:
